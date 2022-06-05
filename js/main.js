@@ -3,7 +3,7 @@ const getRandom = (min, max) => {
   if (max === undefined || min === undefined) {
     return 'Введите все аргументы функции';
   }
-  if (min === max) {
+  if (max === min) {
     return 'Диапазоном не может быть одно число';
   }
   if (min > max) {
