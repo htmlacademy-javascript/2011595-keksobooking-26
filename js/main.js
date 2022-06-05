@@ -16,8 +16,8 @@ const getRandom = (min, max) => {
 console.log('Проверка первой функции'); console.log('getRandom(1,1):'); console.log(getRandom(1, 1)); console.log('getRandom(2,1):'); console.log(getRandom(2, 1)); console.log('getRandom():'); console.log(getRandom()); console.log('getRandom(2,7):'); console.log(getRandom(2, 7));
 
 //Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
-const getRandomWithDot = (min, max, dot) => {
-  if (max === undefined || dot === undefined || min === undefined) {
+const getRandomWithPoint = (min, max, point) => {
+  if (max === undefined || point === undefined || min === undefined) {
     return 'Введите все аргументы функции';
   }
   if (min === max) {
@@ -26,8 +26,8 @@ const getRandomWithDot = (min, max, dot) => {
   if (min > max) {
     return 'Введите корректный диапазон "от...до"';
   }
-  const randDot = min + Math.random() * (max - min);
-  return randDot.toFixed(dot);
+  const randPoint = min + Math.random() * (max - min);
+  return randPoint.toFixed(point);
 };
 // eslint-disable-next-line no-console
-console.log('Проверка второй функции'); console.log('getRandomWithDot(1,1,1):'); console.log(getRandomWithDot(1, 1, 1)); console.log('getRandomWithDot(2,1,1):'); console.log(getRandomWithDot(2, 1, 1)); console.log('getRandomWithDot():'); console.log(getRandomWithDot()); console.log('getRandomWithDot(2,7,2):'); console.log(getRandomWithDot(2, 7, 2));
+console.log('Проверка второй функции'); console.log('getRandomWithPoint(1,1,1):'); console.log(getRandomWithPoint(1, 1, 1)); console.log('getRandomWithPoint(2,1,1):'); console.log(getRandomWithPoint(2, 1, 1)); console.log('getRandomWithPoint():'); console.log(getRandomWithPoint()); console.log('getRandomWithPoint(2,7,2):'); console.log(getRandomWithPoint(2, 7, 2));
