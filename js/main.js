@@ -20,7 +20,7 @@ const getRandomWithPoint = (min, max, point) => {
   if (max === undefined || point === undefined || min === undefined) {
     return 'Введите все аргументы функции';
   }
-  if (min === max) {
+  if (max === min) {
     return 'Диапазоном не может быть одно число';
   }
   if (min > max) {
