@@ -80,7 +80,7 @@ const CHECK_IN_TIME = [
   '13:00',
   '14:00',
 ];
-const CHECK_OUT_TIME = CHECK_IN_TIME;
+const CHECK_OUT_TIME = CHECK_IN_TIME.slice();
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 const createAvatarAddress = () => {
   const randomIndex = getRandomPositiveInteger(0, arrayId.length - 1);
