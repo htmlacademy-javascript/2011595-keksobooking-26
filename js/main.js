@@ -26,7 +26,7 @@ const getRandomArray = (array) => {
 };
 const arrayIdAvatarCreate = () => {
   const array = [];
-  for (let i = 0; i < SIMILAR_ADVERTISEMENTS_COUNT; i++){
+  for (let i = 0; i < SIMILAR_ADVERTISEMENTS_COUNT; i++) {
     array[i] = i + 1;
   }
   return array;
@@ -82,8 +82,8 @@ const CHECK_IN_TIME = [
 ];
 const CHECK_OUT_TIME = CHECK_IN_TIME;
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
-const createAvatarAddress = () =>{
-  const randomIndex = getRandomPositiveInteger(0,arrayId.length-1);
+const createAvatarAddress = () => {
+  const randomIndex = getRandomPositiveInteger(0, arrayId.length - 1);
   const myIndex = arrayId.indexOf(arrayId[randomIndex]);
   const address = arrayId[randomIndex];
   if (arrayId.includes(address)) {
@@ -100,7 +100,7 @@ const createAdvertisement = () => {
     lng: getRandomPositiveFloat(longitudeFrom, longitudeTo, 5)
   };
   const offer = {
-    title:  getRandomArrayElement(headline),
+    title: getRandomArrayElement(headline),
     address: `Географические координаты жилья - широта:${location.lat}, долгота:${location.lng}`,
     price: getRandomPositiveInteger(minPrice, maxPrice),
     type: getRandomArrayElement(TYPE_HOUSING),
