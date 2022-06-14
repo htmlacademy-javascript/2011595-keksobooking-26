@@ -1,3 +1,4 @@
+const SIMILAR_ADVERTISEMENTS_COUNT = 10;
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -23,7 +24,14 @@ const getRandomArray = (array) => {
   }
   return newArray;
 };
-const SIMILAR_ADVERTISEMENTS_COUNT = 10;
+const arrayIdAvatarCreate = () => {
+  const array = [];
+  for (let i = 0; i < SIMILAR_ADVERTISEMENTS_COUNT; i++){
+    array[i] = i + 1;
+  }
+  return array;
+};
+const arrayId = arrayIdAvatarCreate();
 const minPrice = 5000;
 const maxPrice = 100000;
 const maxRoomCount = 100;
@@ -44,7 +52,7 @@ const DESCRIPTION_OF_HOUSING = [
   'Бесплатный вискас, молоко, когтеточка, массаж и мурмяу',
   'Отель без хозяев, без котодетей, без котообязательств',
   'Место для котов без хвостов и совести',
-  'Место если натворил кое-каких дел можно залечь на дно и никто ни о чем не спросит',
+  'Место чтоб залечь на дно, если натворил кое-каких дел',
   'Аппартаменты для котобоссов и котобоссок',
 ];
 const PHOTO_OF_HOUSING = [
@@ -75,23 +83,17 @@ const CHECK_IN_TIME = [
 const CHECK_OUT_TIME = CHECK_IN_TIME;
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 const createAvatarAddress = () =>{
-  //попытка реализовать уникальность id
-  const array = [];
-  for (let i = 0; i < SIMILAR_ADVERTISEMENTS_COUNT; i++){
-    array[i] = i + 1;
+  const randomIndex = getRandomPositiveInteger(0,arrayId.length-1);
+  const myIndex = arrayId.indexOf(arrayId[randomIndex]);
+  const address = arrayId[randomIndex];
+  if (arrayId.includes(address)) {
+    arrayId.splice(myIndex, 1);
   }
-  const petrov = getRandomPositiveInteger(0,array.length-1);
-  const myIndex = array.indexOf(array[petrov]);
-  const address = array[petrov];
-  if (array.includes(address)) {
-    array.splice(myIndex, 1);
-  }
-  //попытка окончена
   return (address < 10) ? `0${Math.abs(address)}` : address;
 };
-const createAdvertisement = (index) => {
+const createAdvertisement = () => {
   const author = {
-    avatar: `img/avatars/user${createAvatarAddress(index)}.png`
+    avatar: `img/avatars/user${createAvatarAddress()}.png`
   };
   const location = {
     lat: getRandomPositiveFloat(latitudeFrom, latitudeTo, 5),
