@@ -11,40 +11,40 @@ const TWO_DIGIT_NUMBER = 10;
 const DIGITS_AFTER_POINT = 5;
 
 const HEADLINE = [
-  "Квартирка для котов лентяев",
-  "Дворец для состоятельных мурчал",
-  "Сдаю гараж с мышами",
-  "Дом для многодетных котов",
-  "Валерианин дом",
+  'Квартирка для котов лентяев',
+  'Дворец для состоятельных мурчал',
+  'Сдаю гараж с мышами',
+  'Дом для многодетных котов',
+  'Валерианин дом',
 ];
 
 const DESCRIPTION_OF_HOUSING = [
-  "Ночлежка для ночных котобродяг",
-  "Бесплатный вискас, молоко, когтеточка, массаж и мурмяу",
-  "Отель без хозяев, без котодетей, без котообязательств",
-  "Место для котов без хвостов и совести",
-  "Место чтоб залечь на дно, если натворил кое-каких дел",
-  "Аппартаменты для котобоссов и котобоссок",
+  'Ночлежка для ночных котобродяг',
+  'Бесплатный вискас, молоко, когтеточка, массаж и мурмяу',
+  'Отель без хозяев, без котодетей, без котообязательств',
+  'Место для котов без хвостов и совести',
+  'Место чтоб залечь на дно, если натворил кое-каких дел',
+  'Аппартаменты для котобоссов и котобоссок',
 ];
 
 const PHOTO_OF_HOUSING = [
-  "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg",
-  "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg",
-  "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg",
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const TYPE_HOUSING = ["palace", "flat", "house", "bungalow", "hotel"];
+const TYPE_HOUSING = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 
 const FEATURES_OF_HOUSING = [
-  "wifi",
-  "dishwasher",
-  "parking",
-  "washer",
-  "elevator",
-  "conditioner",
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner',
 ];
 
-const CHECK_IN_TIME = ["12:00", "13:00", "14:00"];
+const CHECK_IN_TIME = ['12:00', '13:00', '14:00'];
 
 const CHECK_OUT_TIME = CHECK_IN_TIME.slice();
 const numbers = [];
