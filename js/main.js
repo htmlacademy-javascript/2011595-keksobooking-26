@@ -47,9 +47,10 @@ const FEATURES_OF_HOUSING = [
 const CHECK_IN_TIME = ['12:00', '13:00', '14:00'];
 
 const CHECK_OUT_TIME = CHECK_IN_TIME.slice();
+
 const numbers = [];
 const createNumbers = () => {
-  for (let i = 0; i < SIMILAR_ADVERTISEMENTS_COUNT; i++) {
+  for (let i = 0; i < 10; i++) {
     numbers[i] = i + 1;
   }
 };
@@ -70,19 +71,20 @@ const getRandomPositiveFloat = (a, b, digits = 1) => {
   return Number(result.toFixed(digits));
 };
 
-const getRandomArray = (array) => {
-  const maxLength = array.length;
-  const lengthOfArray = getRandomPositiveInteger(1, maxLength);
-  const newArray = [];
-  while (newArray.length < lengthOfArray) {
-    const indexOfEl = getRandomPositiveInteger(0, maxLength - 1);
-    const el = array[indexOfEl];
-    if (!newArray.includes(el)) {
-      newArray.push(el);
+const getRandomElements = (array) => {
+  const randomInt = getRandomPositiveInteger(1, array.length);
+  const elements = [];
+
+  while (elements.length < randomInt) {
+    const index = getRandomPositiveInteger(0, array.length - 1);
+    const element = array[index];
+
+    if (!elements.includes(element)) {
+      elements.push(element);
     }
   }
 
-  return newArray;
+  return elements;
 };
 
 const getRandomArrayElement = (elements) =>
@@ -99,6 +101,7 @@ const createAdvertisement = () => {
   const author = {
     avatar: `img/avatars/user${createAvatarSrc()}.png`,
   };
+
   const location = {
     lat: getRandomPositiveFloat(LATITUDE_FROM, LATITUDE_TO, DIGITS_AFTER_POINT),
     lng: getRandomPositiveFloat(
@@ -107,6 +110,7 @@ const createAdvertisement = () => {
       DIGITS_AFTER_POINT
     ),
   };
+
   const offer = {
     title: getRandomArrayElement(HEADLINES),
     address: `Географические координаты жилья - широта:${location.lat}, долгота:${location.lng}`,
@@ -116,9 +120,9 @@ const createAdvertisement = () => {
     guests: getRandomPositiveInteger(1, MAX_GUESTS_COUNT),
     checkin: getRandomArrayElement(CHECK_IN_TIME),
     checkout: getRandomArrayElement(CHECK_OUT_TIME),
-    features: getRandomArray(FEATURES_OF_HOUSING),
+    features: getRandomElements(FEATURES_OF_HOUSING),
     description: getRandomArrayElement(DESCRIPTIONS_OF_HOUSING),
-    photos: getRandomArray(PHOTOS_OF_HOUSING),
+    photos: getRandomElements(PHOTOS_OF_HOUSING),
   };
 
   return {
