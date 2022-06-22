@@ -1,4 +1,5 @@
 import { getRandomPositiveInteger } from './random-functions.js';
+
 const getRandomElements = (array) => {
   const randomInt = getRandomPositiveInteger(1, array.length);
   const elements = [];
@@ -26,6 +27,4 @@ const createNumbers = () => {
 };
 createNumbers();
 
-export { getRandomElements };
-export { getRandomArrayElement };
-export { numbers };
+export { getRandomElements, getRandomArrayElement, numbers };

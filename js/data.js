@@ -1,8 +1,7 @@
-import { getRandomArrayElement } from './util.js';
-import { getRandomElements } from './util.js';
-import { getRandomPositiveFloat } from './random-functions.js';
-import { getRandomPositiveInteger } from './random-functions.js';
-import { numbers } from './util.js';
+import {getRandomArrayElement, getRandomElements, numbers} from './util.js';
+
+import {getRandomPositiveFloat, getRandomPositiveInteger,} from './random-functions.js';
+
 const SIMILAR_ADVERTISEMENTS_COUNT = 10;
 const MIN_PRICE = 5000;
 const MAX_PRICE = 100000;
@@ -95,6 +94,6 @@ const createAdvertisement = () => {
 };
 
 const createAdvertisements = () =>
-  Array.from({ length: SIMILAR_ADVERTISEMENTS_COUNT }, createAdvertisement);
+  Array.from({length: SIMILAR_ADVERTISEMENTS_COUNT}, createAdvertisement);
 
-export { createAdvertisements };
+export {createAdvertisements};
