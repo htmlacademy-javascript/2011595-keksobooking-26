@@ -1,4 +1,4 @@
-import { getRandomPositiveInteger } from './random-functions.js';
+import {getRandomPositiveInteger} from './random-functions.js';
 
 const getRandomElements = (array) => {
   const randomInt = getRandomPositiveInteger(1, array.length);
@@ -19,12 +19,12 @@ const getRandomElements = (array) => {
 const getRandomArrayElement = (elements) =>
   elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const numbers = [];
 const createNumbers = () => {
+  const numbers = [];
   for (let i = 0; i < 10; i++) {
     numbers[i] = i + 1;
   }
+  return numbers;
 };
-createNumbers();
 
-export { getRandomElements, getRandomArrayElement, numbers };
+export {getRandomElements, getRandomArrayElement, createNumbers};

@@ -1,4 +1,4 @@
-import {getRandomArrayElement, getRandomElements, numbers} from './util.js';
+import {createNumbers, getRandomArrayElement, getRandomElements} from './util.js';
 
 import {getRandomPositiveFloat, getRandomPositiveInteger,} from './random-functions.js';
 
@@ -52,6 +52,7 @@ const CHECK_IN_TIME = ['12:00', '13:00', '14:00'];
 const CHECK_OUT_TIME = CHECK_IN_TIME.slice();
 
 const createAvatarSrc = () => {
+  const numbers = createNumbers();
   const randomIndex = getRandomPositiveInteger(0, numbers.length - 1);
   const fileName = Number(numbers.splice(randomIndex, 1));
 
