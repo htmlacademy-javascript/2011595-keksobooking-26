@@ -2,10 +2,10 @@ import {createNumbers, getRandomArrayElement, getRandomElements} from './util.js
 
 import {getRandomPositiveFloat, getRandomPositiveInteger,} from './random-functions.js';
 
-const SIMILAR_ADVERTISEMENTS_COUNT = 10;
+const SIMILAR_ADVERTISEMENTS_COUNT = 1;
 const MIN_PRICE = 5000;
-const MAX_PRICE = 100000;
-const MAX_ROOM_COUNT = 100;
+const MAX_PRICE = 10000;
+const MAX_ROOM_COUNT = 10;
 const MAX_GUESTS_COUNT = 10;
 const LATITUDE_FROM = 35.65;
 const LATITUDE_TO = 35.7;

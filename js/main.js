@@ -1,3 +1,1 @@
-import {createAdvertisements} from './data.js';
-
-createAdvertisements();
+import './popup.js';
