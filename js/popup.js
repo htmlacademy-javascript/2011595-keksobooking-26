@@ -1,13 +1,10 @@
-import {createAdvertisements} from './data.js';
-import {fixGuestName, fixRoomName} from './util.js';
-
-const containerOfAdvertisements = document.querySelector('.map__canvas');
-
-const similarAdvertisements = createAdvertisements();
-
-const AdvertisementCardTemplate = document.querySelector('#card')
-  .content
-  .querySelector('.popup');
+import { createAdvertisements } from './data.js';
+import {
+  fillingValueSrcOrNot,
+  fillingValueTextContentOrNot,
+  fillingValueTextContentOrNotForCheckoutAndCheckin,
+  fillingValueTextContentOrNotForRoomsAndGuests,
+} from './util.js';
 
 const typesHousingToRussian = {
   flat: 'Квартира',
@@ -17,97 +14,75 @@ const typesHousingToRussian = {
   hotel: 'Отель',
 };
 
-similarAdvertisements.forEach(({author, offer}) => {
-  const advertisementElement = AdvertisementCardTemplate.cloneNode(true);
+const containerOfAdvertisements = document.querySelector('.map__canvas');
+const advertisementCardTemplate = document.querySelector('#card').content;
+const advertisementCardPopup =
+  advertisementCardTemplate.querySelector('.popup');
 
-  const featureContainer = advertisementElement.querySelector('.popup__features');
+const similarAdvertisements = createAdvertisements();
 
+similarAdvertisements.forEach(({ author, offer }) => {
+  const { avatar } = author;
+  const {
+    title,
+    address,
+    price,
+    type,
+    rooms,
+    guests,
+    checkin,
+    checkout,
+    features,
+    description,
+    photos,
+  } = offer;
+  const advertisementElement = advertisementCardPopup.cloneNode(true);
+  const featureContainer =
+    advertisementElement.querySelector('.popup__features');
   const featureList = featureContainer.querySelectorAll('.popup__feature');
-
   const photosContainer = advertisementElement.querySelector('.popup__photos');
-
   const popupAvatar = advertisementElement.querySelector('.popup__avatar');
-
   const popupTitle = advertisementElement.querySelector('.popup__title');
-
-  const popupAddress = advertisementElement.querySelector('.popup__text--address');
-
-  const popupPriceContainer = advertisementElement.querySelector('.popup__text--price');
-
+  const popupAddress = advertisementElement.querySelector(
+    '.popup__text--address'
+  );
+  const popupPriceContainer = advertisementElement.querySelector(
+    '.popup__text--price'
+  );
   const popupPrice = popupPriceContainer.querySelector('.js-price');
-
   const popupType = advertisementElement.querySelector('.popup__type');
-
-  const popupCapacity = advertisementElement.querySelector('.popup__text--capacity');
-
+  const popupCapacity = advertisementElement.querySelector(
+    '.popup__text--capacity'
+  );
   const popupTime = advertisementElement.querySelector('.popup__text--time');
+  const popupDescription = advertisementElement.querySelector(
+    '.popup__description'
+  );
 
-  const popupDescription = advertisementElement.querySelector('.popup__description');
+  fillingValueSrcOrNot(popupAvatar, avatar);
 
-  if (author.avatar) {
-    popupAvatar.src = author.avatar;
-  } else {
-    popupAvatar.remove();
-  }
+  fillingValueTextContentOrNot(popupTitle, title);
 
-  if (offer.title) {
-    popupTitle.textContent = offer.title;
-  } else {
-    popupTitle.remove();
-  }
+  fillingValueTextContentOrNot(popupAddress, address);
 
-  if (offer.address) {
-    popupAddress.textContent = offer.address;
-  } else {
-    popupAddress.remove();
-  }
+  fillingValueTextContentOrNot(popupPrice, price);
 
-  if (offer.price) {
-    popupPrice.textContent = offer.price;
-  } else {
-    popupPriceContainer.remove();
-  }
+  fillingValueTextContentOrNot(popupType, typesHousingToRussian[type]);
 
-  if (offer.type) {
-    popupType.textContent = typesHousingToRussian[offer.type];
-  } else {
-    popupType.remove();
-  }
+  fillingValueTextContentOrNot(popupDescription, description);
 
-  if (offer.rooms && (offer.guests === undefined)) {
-    popupCapacity.textContent = `${offer.rooms} ${fixRoomName(offer.rooms)}`;
-  }
-  if (offer.guests && (offer.rooms === undefined)) {
-    popupCapacity.textContent = `для ${offer.guests} ${fixGuestName(offer.guests)}`;
-  }
-  if (offer.rooms && offer.guests) {
-    popupCapacity.textContent = `${offer.rooms} ${fixRoomName(offer.rooms)} для ${offer.guests} ${fixGuestName(offer.guests)}`;
-  } else {
-    popupCapacity.remove();
-  }
+  fillingValueTextContentOrNotForRoomsAndGuests(popupCapacity, rooms, guests);
 
-  if (offer.checkout && (offer.checkin === undefined)) {
-    popupTime.textContent = `Выезд до ${offer.checkout}`;
-  }
-  if (offer.checkin && (offer.checkout === undefined)) {
-    popupTime.textContent = `Заезд после ${offer.checkin}`;
-  }
-  if (offer.checkout && offer.checkin) {
-    popupTime.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  } else {
-    popupTime.remove();
-  }
+  fillingValueTextContentOrNotForCheckoutAndCheckin(
+    popupTime,
+    checkout,
+    checkin
+  );
 
-  if (offer.description) {
-    popupDescription.textContent = offer.description;
-  } else {
-    popupDescription.remove();
-  }
-
-  if (offer.features) {
+  if (features) {
     featureList.forEach((featureListItem) => {
-      const isNecessary = offer.features.some(
-        (offerFeature) => featureListItem.classList.contains(`popup__feature--${offerFeature}`),
+      const isNecessary = features.some((offerFeature) =>
+        featureListItem.classList.contains(`popup__feature--${offerFeature}`)
       );
 
       if (!isNecessary) {
@@ -119,9 +94,13 @@ similarAdvertisements.forEach(({author, offer}) => {
   }
 
   advertisementElement.querySelector('.popup__photo').remove();
-  if (offer.photos) {
-    offer.photos.forEach((photo) => {
-      photosContainer.insertAdjacentHTML('beforeend', `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
+
+  if (photos) {
+    photos.forEach((photo) => {
+      photosContainer.insertAdjacentHTML(
+        'beforeend',
+        `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`
+      );
     });
   } else {
     photosContainer.remove();
