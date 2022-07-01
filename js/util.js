@@ -52,9 +52,7 @@ const fillInRoomsAndGuests = (rooms, guests, element) => {
     element.textContent = `для ${guests} ${fixGuestName(guests)}`;
   }
   if (rooms && guests) {
-    element.textContent = `${rooms} ${fixRoomName(
-      rooms
-    )} для ${guests} ${fixGuestName(guests)}`;
+    element.textContent = `${rooms} ${fixRoomName(rooms)} для ${guests} ${fixGuestName(guests)}`;
   }
 };
 
