@@ -1,24 +1,3 @@
-import { getRandomPositiveInteger } from './random-functions.js';
-
-const getRandomElements = (array) => {
-  const randomInt = getRandomPositiveInteger(1, array.length);
-  const elements = [];
-
-  while (elements.length < randomInt) {
-    const index = getRandomPositiveInteger(0, array.length - 1);
-    const element = array[index];
-
-    if (!elements.includes(element)) {
-      elements.push(element);
-    }
-  }
-
-  return elements;
-};
-
-const getRandomArrayElement = (elements) =>
-  elements[getRandomPositiveInteger(0, elements.length - 1)];
-
 const createNumbers = () => {
   const numbers = [];
   for (let i = 0; i < 10; i++) {
@@ -49,68 +28,69 @@ const fixGuestName = (value) => {
   }
 };
 
-const fillingValueTextContentOrNot = (htmlAddress, valueProperty) => {
-  if (valueProperty) {
-    htmlAddress.textContent = valueProperty;
+const fillInElement = (element, value, property = 'textContent') => {
+  element[property] = value;
+};
+
+const removeElement = (element) => {
+  element.remove();
+};
+
+const checkValue = (element, value, property = 'textContent') => {
+  if (value) {
+    fillInElement(element, value, property);
   } else {
-    htmlAddress.remove();
+    removeElement(element);
   }
 };
 
-const fillingValueSrcOrNot = (htmlAddress, valueProperty) => {
-  if (valueProperty) {
-    htmlAddress.src = valueProperty;
-  } else {
-    htmlAddress.remove();
+const fillInRoomsAndGuests = (rooms, guests, element) => {
+  if (rooms && !guests) {
+    element.textContent = `${rooms} ${fixRoomName(rooms)}`;
   }
-};
-
-const fillingValueTextContentOrNotForRoomsAndGuests = (
-  htmlAddress,
-  rooms,
-  guests
-) => {
-  if (rooms && guests === undefined) {
-    htmlAddress.textContent = `${rooms} ${fixRoomName(rooms)}`;
-  }
-  if (guests && rooms === undefined) {
-    htmlAddress.textContent = `для ${guests} ${fixGuestName(guests)}`;
+  if (!rooms && guests) {
+    element.textContent = `для ${guests} ${fixGuestName(guests)}`;
   }
   if (rooms && guests) {
-    htmlAddress.textContent = `${rooms} ${fixRoomName(
+    element.textContent = `${rooms} ${fixRoomName(
       rooms
     )} для ${guests} ${fixGuestName(guests)}`;
-  } else {
-    htmlAddress.remove();
   }
 };
 
-const fillingValueTextContentOrNotForCheckoutAndCheckin = (
-  htmlAddress,
-  checkout,
-  checkin
-) => {
-  if (checkout && checkin === undefined) {
-    htmlAddress.textContent = `Выезд до ${checkout}`;
+const checkValueOfRoomsAndGuests = (element, rooms, guests) => {
+  if (!rooms && !guests) {
+    removeElement(element);
+  } else {
+    fillInRoomsAndGuests(rooms, guests, element);
   }
-  if (checkin && checkout === undefined) {
-    htmlAddress.textContent = `Заезд после ${checkin}`;
+};
+
+const fillInCheckoutAndCheckin = (element, checkout, checkin) => {
+  if (checkout && !checkin) {
+    element.textContent = `Выезд до ${checkout}`;
+  }
+  if (!checkout && checkin) {
+    element.textContent = `Заезд после ${checkin}`;
   }
   if (checkout && checkin) {
-    htmlAddress.textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
+    element.textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
+  }
+};
+
+const checkValueOfCheckoutAndCheckin = (element, checkout, checkin) => {
+  if (!checkout && !checkin) {
+    removeElement(element);
   } else {
-    htmlAddress.remove();
+    fillInCheckoutAndCheckin(element, checkout, checkin);
   }
 };
 
 export {
-  getRandomElements,
-  getRandomArrayElement,
   createNumbers,
   fixRoomName,
   fixGuestName,
-  fillingValueSrcOrNot,
-  fillingValueTextContentOrNot,
-  fillingValueTextContentOrNotForRoomsAndGuests,
-  fillingValueTextContentOrNotForCheckoutAndCheckin,
+  checkValue,
+  checkValueOfRoomsAndGuests,
+  checkValueOfCheckoutAndCheckin,
 };

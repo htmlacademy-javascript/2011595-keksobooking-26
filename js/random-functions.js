@@ -14,4 +14,28 @@ const getRandomPositiveFloat = (a, b, digits = 1) => {
   return Number(result.toFixed(digits));
 };
 
-export { getRandomPositiveInteger, getRandomPositiveFloat };
+const getRandomElements = (array) => {
+  const randomInt = getRandomPositiveInteger(1, array.length);
+  const elements = [];
+
+  while (elements.length < randomInt) {
+    const index = getRandomPositiveInteger(0, array.length - 1);
+    const element = array[index];
+
+    if (!elements.includes(element)) {
+      elements.push(element);
+    }
+  }
+
+  return elements;
+};
+
+const getRandomArrayElement = (elements) =>
+  elements[getRandomPositiveInteger(0, elements.length - 1)];
+
+export {
+  getRandomPositiveInteger,
+  getRandomPositiveFloat,
+  getRandomElements,
+  getRandomArrayElement,
+};

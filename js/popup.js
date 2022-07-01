@@ -1,9 +1,8 @@
 import { createAdvertisements } from './data.js';
 import {
-  fillingValueSrcOrNot,
-  fillingValueTextContentOrNot,
-  fillingValueTextContentOrNotForCheckoutAndCheckin,
-  fillingValueTextContentOrNotForRoomsAndGuests,
+  checkValue,
+  checkValueOfRoomsAndGuests,
+  checkValueOfCheckoutAndCheckin,
 } from './util.js';
 
 const typesHousingToRussian = {
@@ -14,14 +13,13 @@ const typesHousingToRussian = {
   hotel: 'Отель',
 };
 
-const containerOfAdvertisements = document.querySelector('.map__canvas');
-const advertisementCardTemplate = document.querySelector('#card').content;
-const advertisementCardPopup =
-  advertisementCardTemplate.querySelector('.popup');
+const containerOfAdds = document.querySelector('.map__canvas');
+const addCardTemplate = document.querySelector('#card').content;
+const addCardPopup = addCardTemplate.querySelector('.popup');
 
-const similarAdvertisements = createAdvertisements();
+const similarAdds = createAdvertisements();
 
-similarAdvertisements.forEach(({ author, offer }) => {
+similarAdds.forEach(({ author, offer }) => {
   const { avatar } = author;
   const {
     title,
@@ -36,48 +34,37 @@ similarAdvertisements.forEach(({ author, offer }) => {
     description,
     photos,
   } = offer;
-  const advertisementElement = advertisementCardPopup.cloneNode(true);
-  const featureContainer =
-    advertisementElement.querySelector('.popup__features');
+
+  const addElement = addCardPopup.cloneNode(true);
+
+  const featureContainer = addElement.querySelector('.popup__features');
   const featureList = featureContainer.querySelectorAll('.popup__feature');
-  const photosContainer = advertisementElement.querySelector('.popup__photos');
-  const popupAvatar = advertisementElement.querySelector('.popup__avatar');
-  const popupTitle = advertisementElement.querySelector('.popup__title');
-  const popupAddress = advertisementElement.querySelector(
-    '.popup__text--address'
-  );
-  const popupPriceContainer = advertisementElement.querySelector(
-    '.popup__text--price'
-  );
+  const photosContainer = addElement.querySelector('.popup__photos');
+  const popupAvatar = addElement.querySelector('.popup__avatar');
+  const popupTitle = addElement.querySelector('.popup__title');
+  const popupAddress = addElement.querySelector('.popup__text--address');
+  const popupPriceContainer = addElement.querySelector('.popup__text--price');
   const popupPrice = popupPriceContainer.querySelector('.js-price');
-  const popupType = advertisementElement.querySelector('.popup__type');
-  const popupCapacity = advertisementElement.querySelector(
-    '.popup__text--capacity'
-  );
-  const popupTime = advertisementElement.querySelector('.popup__text--time');
-  const popupDescription = advertisementElement.querySelector(
-    '.popup__description'
-  );
+  const popupType = addElement.querySelector('.popup__type');
+  const popupCapacity = addElement.querySelector('.popup__text--capacity');
+  const popupTime = addElement.querySelector('.popup__text--time');
+  const popupDescription = addElement.querySelector('.popup__description');
 
-  fillingValueSrcOrNot(popupAvatar, avatar);
+  checkValue(popupAvatar, avatar, 'src');
 
-  fillingValueTextContentOrNot(popupTitle, title);
+  checkValue(popupTitle, title);
 
-  fillingValueTextContentOrNot(popupAddress, address);
+  checkValue(popupAddress, address);
 
-  fillingValueTextContentOrNot(popupPrice, price);
+  checkValue(popupPrice, price);
 
-  fillingValueTextContentOrNot(popupType, typesHousingToRussian[type]);
+  checkValue(popupType, typesHousingToRussian[type]);
 
-  fillingValueTextContentOrNot(popupDescription, description);
+  checkValue(popupDescription, description);
 
-  fillingValueTextContentOrNotForRoomsAndGuests(popupCapacity, rooms, guests);
+  checkValueOfRoomsAndGuests(popupCapacity, rooms, guests);
 
-  fillingValueTextContentOrNotForCheckoutAndCheckin(
-    popupTime,
-    checkout,
-    checkin
-  );
+  checkValueOfCheckoutAndCheckin(popupTime, checkout, checkin);
 
   if (features) {
     featureList.forEach((featureListItem) => {
@@ -93,7 +80,8 @@ similarAdvertisements.forEach(({ author, offer }) => {
     featureContainer.remove();
   }
 
-  advertisementElement.querySelector('.popup__photo').remove();
+  // удаляю заглушку
+  addElement.querySelector('.popup__photo').remove();
 
   if (photos) {
     photos.forEach((photo) => {
@@ -105,5 +93,5 @@ similarAdvertisements.forEach(({ author, offer }) => {
   } else {
     photosContainer.remove();
   }
-  containerOfAdvertisements.appendChild(advertisementElement);
+  containerOfAdds.appendChild(addElement);
 });
