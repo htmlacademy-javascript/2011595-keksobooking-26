@@ -36,6 +36,10 @@ const removeElement = (element) => {
   element.remove();
 };
 
+const removeParentElement = (element) => {
+  element.parentElement.remove();
+};
+
 const checkValue = (element, value, property = 'textContent') => {
   if (value) {
     fillInElement(element, value, property);
@@ -84,6 +88,43 @@ const checkValueOfCheckoutAndCheckin = (element, checkout, checkin) => {
   }
 };
 
+const fillInPhoto = (element, photos) => {
+  photos.forEach((photo) => {
+    element.insertAdjacentHTML(
+      'beforeend',
+      `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`
+    );
+  });
+};
+
+const checkValueOfPhoto = (element, photos) => {
+  if (photos) {
+    fillInPhoto(element, photos);
+  } else {
+    removeElement(element);
+  }
+};
+
+const checkContainOfChildElement = (element, modifiersOfChildElement, ChildElement = 'popup__feature') => {
+  element.forEach((elementListItem) => {
+    const isNecessary = modifiersOfChildElement.some((modifierOfChildElement) =>
+      elementListItem.classList.contains(`${ChildElement}--${modifierOfChildElement}`)
+    );
+
+    if (!isNecessary) {
+      removeElement(elementListItem);
+    }
+  });
+};
+
+const checkValueOfChild = (element, value) => {
+  if (value) {
+    checkContainOfChildElement(element, value);
+  } else {
+    removeParentElement(element);
+  }
+};
+
 export {
   createNumbers,
   fixRoomName,
@@ -91,4 +132,6 @@ export {
   checkValue,
   checkValueOfRoomsAndGuests,
   checkValueOfCheckoutAndCheckin,
+  checkValueOfChild,
+  checkValueOfPhoto,
 };

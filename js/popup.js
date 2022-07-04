@@ -3,6 +3,8 @@ import {
   checkValue,
   checkValueOfRoomsAndGuests,
   checkValueOfCheckoutAndCheckin,
+  checkValueOfChild,
+  checkValueOfPhoto,
 } from './util.js';
 
 const typesHousingToRussian = {
@@ -66,32 +68,12 @@ similarAdds.forEach(({ author, offer }) => {
 
   checkValueOfCheckoutAndCheckin(popupTime, checkout, checkin);
 
-  if (features) {
-    featureList.forEach((featureListItem) => {
-      const isNecessary = features.some((offerFeature) =>
-        featureListItem.classList.contains(`popup__feature--${offerFeature}`)
-      );
-
-      if (!isNecessary) {
-        featureListItem.remove();
-      }
-    });
-  } else {
-    featureContainer.remove();
-  }
+  checkValueOfChild(featureList, features);
 
   // удаляю заглушку
   addElement.querySelector('.popup__photo').remove();
 
-  if (photos) {
-    photos.forEach((photo) => {
-      photosContainer.insertAdjacentHTML(
-        'beforeend',
-        `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`
-      );
-    });
-  } else {
-    photosContainer.remove();
-  }
+  checkValueOfPhoto(photosContainer, photos);
+
   containerOfAdds.appendChild(addElement);
 });
