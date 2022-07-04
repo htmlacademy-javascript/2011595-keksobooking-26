@@ -132,6 +132,6 @@ export {
   checkValue,
   checkValueOfRoomsAndGuests,
   checkValueOfCheckoutAndCheckin,
-  checkValueOfChild,
   checkValueOfPhoto,
+  checkValueOfChild,
 };
