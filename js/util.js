@@ -105,10 +105,10 @@ const checkValueOfPhoto = (element, photos) => {
   }
 };
 
-const checkContainOfChildElement = (element, modifiersOfChildElement, ChildElement = 'popup__feature') => {
+const checkContainOfChildElement = (element, modifiersOfChildElement, childElement = 'popup__feature') => {
   element.forEach((elementListItem) => {
     const isNecessary = modifiersOfChildElement.some((modifierOfChildElement) =>
-      elementListItem.classList.contains(`${ChildElement}--${modifierOfChildElement}`)
+      elementListItem.classList.contains(`${childElement}--${modifierOfChildElement}`)
     );
 
     if (!isNecessary) {
