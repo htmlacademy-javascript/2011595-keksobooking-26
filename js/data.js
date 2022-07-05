@@ -1,11 +1,16 @@
-import {createNumbers, getRandomArrayElement, getRandomElements} from './util.js';
+import { createNumbers } from './util.js';
 
-import {getRandomPositiveFloat, getRandomPositiveInteger,} from './random-functions.js';
+import {
+  getRandomPositiveFloat,
+  getRandomPositiveInteger,
+  getRandomArrayElement,
+  getRandomElements,
+} from './random-functions.js';
 
-const SIMILAR_ADVERTISEMENTS_COUNT = 10;
+const SIMILAR_ADVERTISEMENTS_COUNT = 1;
 const MIN_PRICE = 5000;
-const MAX_PRICE = 100000;
-const MAX_ROOM_COUNT = 100;
+const MAX_PRICE = 10000;
+const MAX_ROOM_COUNT = 10;
 const MAX_GUESTS_COUNT = 10;
 const LATITUDE_FROM = 35.65;
 const LATITUDE_TO = 35.7;
@@ -78,8 +83,8 @@ const createAdvertisement = () => {
     address: `Географические координаты жилья - широта:${location.lat}, долгота:${location.lng}`,
     price: getRandomPositiveInteger(MIN_PRICE, MAX_PRICE),
     type: getRandomArrayElement(TYPES_OF_HOUSING),
-    rooms: getRandomPositiveInteger(1, MAX_ROOM_COUNT),
-    guests: getRandomPositiveInteger(1, MAX_GUESTS_COUNT),
+    rooms: getRandomPositiveInteger(0, MAX_ROOM_COUNT),
+    guests: getRandomPositiveInteger(0, MAX_GUESTS_COUNT),
     checkin: getRandomArrayElement(CHECK_IN_TIME),
     checkout: getRandomArrayElement(CHECK_OUT_TIME),
     features: getRandomElements(FEATURES_OF_HOUSING),
@@ -95,6 +100,6 @@ const createAdvertisement = () => {
 };
 
 const createAdvertisements = () =>
-  Array.from({length: SIMILAR_ADVERTISEMENTS_COUNT}, createAdvertisement);
+  Array.from({ length: SIMILAR_ADVERTISEMENTS_COUNT }, createAdvertisement);
 
-export {createAdvertisements};
+export { createAdvertisements };
