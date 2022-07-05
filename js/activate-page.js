@@ -1,29 +1,26 @@
-const changeFormState = (toEnabledOrDisabled) => {
+import {
+  checkStateOfForm,
+  changeConditionOfCollection,
+  changeConditionOfElement,
+} from './activate-page-util.js';
+
+const changeFormState = (condition) => {
   const form = document.querySelector('.ad-form');
   const mapForm = document.querySelector('.map__filters');
   const formHeader = form.querySelector('.ad-form-header');
+  const formElements = form.querySelectorAll('.ad-form__element');
+  const mapFilters = mapForm.querySelectorAll('.map__filter');
+  const mapCheckboxes = mapForm.querySelectorAll('.map__checkbox');
 
-  if (toEnabledOrDisabled) {
-    form.classList.remove('ad-form--disabled');
-    mapForm.classList.remove('ad-form--disabled');
-  } else {
-    form.classList.add('ad-form--disabled');
-    mapForm.classList.add('ad-form--disabled');
-  }
+  checkStateOfForm(form, mapForm, condition);
 
-  formHeader.disabled = !toEnabledOrDisabled;
+  changeConditionOfElement(formHeader, condition);
 
-  form.querySelectorAll('.ad-form__element').forEach((field) => {
-    field.disabled = !toEnabledOrDisabled;
-  });
+  changeConditionOfCollection(formElements, condition);
 
-  mapForm.querySelectorAll('.map__filter').forEach((select) => {
-    select.disabled = !toEnabledOrDisabled;
-  });
+  changeConditionOfCollection(mapFilters, condition);
 
-  mapForm.querySelectorAll('.map__checkbox').forEach((checkbox) => {
-    checkbox.disabled = !toEnabledOrDisabled;
-  });
+  changeConditionOfCollection(mapCheckboxes, condition);
 };
 
 export { changeFormState };
