@@ -1,26 +1,25 @@
 import {
-  checkStateOfForm,
+  changeClassOfForms,
   changeConditionOfCollection,
   changeConditionOfElement,
 } from './activate-page-util.js';
 
-const changeFormState = (condition) => {
-  const form = document.querySelector('.ad-form');
-  const mapForm = document.querySelector('.map__filters');
-  const formHeader = form.querySelector('.ad-form-header');
-  const formElements = form.querySelectorAll('.ad-form__element');
-  const mapFilters = mapForm.querySelectorAll('.map__filter');
-  const mapCheckboxes = mapForm.querySelectorAll('.map__checkbox');
+const changeFormsState = (condition) => {
+  const noticeForm = document.querySelector('.ad-form');
+  const filtersForm = document.querySelector('.map__filters');
+  const formHeader = noticeForm.querySelector('.ad-form-header');
+  const formElements = noticeForm.querySelectorAll('.ad-form__element');
+  const selectsOfFiltersForm = filtersForm.querySelectorAll('.map__filter');
+  const checkboxesOfFiltersForm = filtersForm.querySelectorAll('.map__checkbox');
+  const elementsOfForms = [formElements, selectsOfFiltersForm, checkboxesOfFiltersForm];
 
-  checkStateOfForm(form, mapForm, condition);
+  changeClassOfForms(noticeForm, filtersForm, condition);
 
   changeConditionOfElement(formHeader, condition);
 
-  changeConditionOfCollection(formElements, condition);
-
-  changeConditionOfCollection(mapFilters, condition);
-
-  changeConditionOfCollection(mapCheckboxes, condition);
+  elementsOfForms.forEach((elements) => {
+    changeConditionOfCollection(elements, condition);
+  });
 };
 
-export { changeFormState };
+export { changeFormsState };

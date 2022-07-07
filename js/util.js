@@ -125,6 +125,14 @@ const checkValueOfChild = (element, value) => {
   }
 };
 
+const addClass = (element, addedClass) => {
+  element.classList.add(addedClass);
+};
+
+const removeClass = (element, removedClass) => {
+  element.classList.remove(removedClass);
+};
+
 export {
   createNumbers,
   fixRoomName,
@@ -134,4 +142,6 @@ export {
   checkValueOfCheckoutAndCheckin,
   checkValueOfPhoto,
   checkValueOfChild,
+  addClass,
+  removeClass,
 };

@@ -1,12 +1,11 @@
-const addClass = (element, addedClass) => {
-  element.classList.add(addedClass);
-};
+import {
+  addClass,
+  removeClass,
+} from './util.js';
 
-const removeClass = (element, removedClass) => {
-  element.classList.remove(removedClass);
-};
+const CLASS_FORM_DISABLED = 'ad-form--disabled';
 
-const checkStateOfForm = (form, mapForm, condition, stateClass = 'ad-form--disabled') => {
+const changeClassOfForms = (form, mapForm, condition, stateClass = CLASS_FORM_DISABLED) => {
   if (condition) {
     removeClass(form, stateClass);
     removeClass(mapForm, stateClass);
@@ -26,4 +25,4 @@ const changeConditionOfCollection = (collection, condition) => {
   });
 };
 
-export { checkStateOfForm, changeConditionOfCollection, changeConditionOfElement };
+export { changeClassOfForms, changeConditionOfCollection, changeConditionOfElement };

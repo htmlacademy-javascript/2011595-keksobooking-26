@@ -1,4 +1,3 @@
-import './popup.js';
-import { changeFormState } from './activate-page.js';
+import { changeFormsState } from './activate-page.js';
 
-changeFormState(false);
+changeFormsState(false);
