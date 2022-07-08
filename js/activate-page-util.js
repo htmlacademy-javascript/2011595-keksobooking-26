@@ -5,13 +5,11 @@ import {
 
 const CLASS_FORM_DISABLED = 'ad-form--disabled';
 
-const changeClassOfForms = (form, mapForm, condition, stateClass = CLASS_FORM_DISABLED) => {
+const changeClassOfElement = (element, condition, stateClass = CLASS_FORM_DISABLED) => {
   if (condition) {
-    removeClass(form, stateClass);
-    removeClass(mapForm, stateClass);
+    removeClass(element, stateClass);
   } else {
-    addClass(form, stateClass);
-    addClass(mapForm, stateClass);
+    addClass(element, stateClass);
   }
 };
 
@@ -25,4 +23,4 @@ const changeConditionOfCollection = (collection, condition) => {
   });
 };
 
-export { changeClassOfForms, changeConditionOfCollection, changeConditionOfElement };
+export { changeClassOfElement, changeConditionOfCollection, changeConditionOfElement };
