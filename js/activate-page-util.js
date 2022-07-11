@@ -3,7 +3,7 @@ import {
   removeClass,
 } from './util.js';
 
-const CLASS_FORM_DISABLED = 'ad-formValidation--disabled';
+const CLASS_FORM_DISABLED = 'ad-form--disabled';
 
 const changeClassOfElement = (element, condition, stateClass = CLASS_FORM_DISABLED) => {
   if (condition) {

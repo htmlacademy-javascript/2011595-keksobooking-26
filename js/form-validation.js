@@ -1,13 +1,14 @@
-const form = document.querySelector('.ad-form');
-const titleField = form.querySelector('#title');
-const typeField = form.querySelector('#type');
-const priceField = form.querySelector('#price');
-const roomsField = form.querySelector('#room_number');
-const guestsField = form.querySelector('#capacity');
-const checkinField = form.querySelector('#timein');
-const checkoutField = form.querySelector('#timeout');
+import { noticeForm } from './activate-page.js';
 
-const MAX_PRICE = 100000;
+const titleField = noticeForm.querySelector('#title');
+const typeField = noticeForm.querySelector('#type');
+const priceField = noticeForm.querySelector('#price');
+const roomsField = noticeForm.querySelector('#room_number');
+const guestsField = noticeForm.querySelector('#capacity');
+const checkinField = noticeForm.querySelector('#timein');
+const checkoutField = noticeForm.querySelector('#timeout');
+
+const NOT_FOR_GUESTS = '100 комнат - не для гостей';
 
 const TITLE_LENGTH = {
   min: 30,
@@ -27,7 +28,7 @@ const CAPACITY_OPTION = {
   maxRoom: 100,
 };
 
-const pristine = new Pristine(form, {
+const pristine = new Pristine(noticeForm, {
   classTo: 'ad-form__element',
   successClass: 'ad-form__element--valid',
   errorClass: 'ad-form__element--invalid',
@@ -55,14 +56,14 @@ pristine.addValidator(titleField, validateTitle, getErrorTitleMessage);
 // Валидация поля «Цена за ночь» с зависимостью минимальной цены и плейсхолдера от поля «Тип жилья»
 
 const validatePrice = () =>
-  Number(priceField.value) >= TYPE_PRICE[typeField.value] && Number(priceField.value) <= MAX_PRICE;
+  Number(priceField.value) >= TYPE_PRICE[typeField.value] && Number(priceField.value) <= priceField.max;
 
 const getErrorPriceMessage = () => {
   if (Number(priceField.value) < TYPE_PRICE[typeField.value]) {
     return `Минимальная цена должна быть больше ${TYPE_PRICE[typeField.value]}`;
   }
-  if (Number(priceField.value) > MAX_PRICE) {
-    return `Цена не должна превышать ${MAX_PRICE}`;
+  if (Number(priceField.value) > priceField.max) {
+    return `Цена не должна превышать ${priceField.max}`;
   }
 };
 
@@ -92,6 +93,7 @@ const validateRoomsAndGuests = () =>
   (Number(roomsField.value) === CAPACITY_OPTION.maxRoom &&
     Number(guestsField.value) === CAPACITY_OPTION.notGuests);
 
+
 const getErrorGuestsMessage = () => {
   if (Number(roomsField.value) < Number(guestsField.value)) {
     return 'Количество гостей не должно превышать количество комнат';
@@ -102,7 +104,7 @@ const getErrorGuestsMessage = () => {
     (Number(roomsField.value) !== CAPACITY_OPTION.maxRoom &&
       Number(guestsField.value) === CAPACITY_OPTION.notGuests)
   ) {
-    return '100 комнат - не для гостей';
+    return NOT_FOR_GUESTS;
   }
 };
 
@@ -136,7 +138,7 @@ const onCheckoutFieldChange = () => {
 checkinField.addEventListener('change', onCheckinFieldChange);
 checkoutField.addEventListener('change', onCheckoutFieldChange);
 
-form.addEventListener(
+noticeForm.addEventListener(
   'submit',
   (evt) => {
     evt.preventDefault();
