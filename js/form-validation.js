@@ -9,6 +9,7 @@ const checkinField = noticeForm.querySelector('#timein');
 const checkoutField = noticeForm.querySelector('#timeout');
 
 const NOT_FOR_GUESTS = '100 комнат - не для гостей';
+const ROOMS_LESS_GUESTS = 'Количество гостей не должно превышать количество комнат';
 
 const TITLE_LENGTH = {
   min: 30,
@@ -96,7 +97,7 @@ const validateRoomsAndGuests = () =>
 
 const getErrorGuestsMessage = () => {
   if (Number(roomsField.value) < Number(guestsField.value)) {
-    return 'Количество гостей не должно превышать количество комнат';
+    return ROOMS_LESS_GUESTS;
   }
   if (
     (Number(roomsField.value) === CAPACITY_OPTION.maxRoom &&
