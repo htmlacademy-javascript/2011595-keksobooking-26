@@ -1,4 +1,17 @@
-import { changeFormsState } from './activate-page.js';
-import './form-validation.js';
+import {changeFormsState, noticeForm} from './activate-page.js';
+import {onNoticeFormSubmit} from './form-validation.js';
 
-changeFormsState(true);
+// При открытии страница находится в неактивном состоянии:
+changeFormsState(false);
+// Загрузка и успешная инициализация карты
+const slava2 = '111';
+if (slava2) {
+  // Перевод страницы в активное состояние
+  changeFormsState(true);
+  // Вносить изменения в форму и отправлять её на сервер;
+  noticeForm.addEventListener(
+    'submit', onNoticeFormSubmit
+  );
+// Фильтрация.
+}
+
