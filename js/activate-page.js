@@ -10,7 +10,11 @@ const formHeader = noticeForm.querySelector('.ad-form-header');
 const formElements = noticeForm.querySelectorAll('.ad-form__element');
 const selectsOfFiltersForm = filtersForm.querySelectorAll('.map__filter');
 const checkboxesOfFiltersForm = filtersForm.querySelectorAll('.map__checkbox');
-const elementsOfForms = [formElements, selectsOfFiltersForm, checkboxesOfFiltersForm];
+const elementsOfForms = [
+  formElements,
+  selectsOfFiltersForm,
+  checkboxesOfFiltersForm,
+];
 const forms = [noticeForm, filtersForm];
 
 const changeFormsState = (condition) => {

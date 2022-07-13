@@ -56,7 +56,9 @@ const fillInRoomsAndGuests = (rooms, guests, element) => {
     element.textContent = `для ${guests} ${fixGuestName(guests)}`;
   }
   if (rooms && guests) {
-    element.textContent = `${rooms} ${fixRoomName(rooms)} для ${guests} ${fixGuestName(guests)}`;
+    element.textContent = `${rooms} ${fixRoomName(
+      rooms
+    )} для ${guests} ${fixGuestName(guests)}`;
   }
 };
 
@@ -105,10 +107,16 @@ const checkValueOfPhoto = (element, photos) => {
   }
 };
 
-const checkContainOfChildElement = (element, modifiersOfChildElement, childElement = 'popup__feature') => {
+const checkContainOfChildElement = (
+  element,
+  modifiersOfChildElement,
+  childElement = 'popup__feature'
+) => {
   element.forEach((elementListItem) => {
     const isNecessary = modifiersOfChildElement.some((modifierOfChildElement) =>
-      elementListItem.classList.contains(`${childElement}--${modifierOfChildElement}`)
+      elementListItem.classList.contains(
+        `${childElement}--${modifierOfChildElement}`
+      )
     );
 
     if (!isNecessary) {
