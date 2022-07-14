@@ -2,11 +2,7 @@ import { addClass, removeClass } from './util.js';
 
 const CLASS_FORM_DISABLED = 'ad-form--disabled';
 
-const changeClassOfElement = (
-  element,
-  condition,
-  stateClass = CLASS_FORM_DISABLED
-) => {
+const changeClassOfElement = (element, condition, stateClass = CLASS_FORM_DISABLED) => {
   if (condition) {
     removeClass(element, stateClass);
   } else {
@@ -16,6 +12,14 @@ const changeClassOfElement = (
 
 const changeConditionOfElement = (element, condition) => {
   element.disabled = !condition;
+};
+
+const changeConditionOfSlider = (element, condition) => {
+  if (condition) {
+    element.removeAttribute('disabled');
+  } else {
+    element.setAttribute('disabled', condition);
+  }
 };
 
 const changeConditionOfCollection = (collection, condition) => {
@@ -28,4 +32,5 @@ export {
   changeClassOfElement,
   changeConditionOfCollection,
   changeConditionOfElement,
+  changeConditionOfSlider,
 };

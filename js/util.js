@@ -56,9 +56,7 @@ const fillInRoomsAndGuests = (rooms, guests, element) => {
     element.textContent = `для ${guests} ${fixGuestName(guests)}`;
   }
   if (rooms && guests) {
-    element.textContent = `${rooms} ${fixRoomName(
-      rooms
-    )} для ${guests} ${fixGuestName(guests)}`;
+    element.textContent = `${rooms} ${fixRoomName(rooms)} для ${guests} ${fixGuestName(guests)}`;
   }
 };
 
@@ -114,9 +112,7 @@ const checkContainOfChildElement = (
 ) => {
   element.forEach((elementListItem) => {
     const isNecessary = modifiersOfChildElement.some((modifierOfChildElement) =>
-      elementListItem.classList.contains(
-        `${childElement}--${modifierOfChildElement}`
-      )
+      elementListItem.classList.contains(`${childElement}--${modifierOfChildElement}`)
     );
 
     if (!isNecessary) {
@@ -141,6 +137,8 @@ const removeClass = (element, removedClass) => {
   element.classList.remove(removedClass);
 };
 
+const splitString = (stringToSplit, separator = ',') => stringToSplit.split(separator);
+
 export {
   createNumbers,
   fixRoomName,
@@ -152,4 +150,5 @@ export {
   checkValueOfChild,
   addClass,
   removeClass,
+  splitString,
 };

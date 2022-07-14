@@ -1,5 +1,4 @@
-import { noticeForm } from './activate-page.js';
-
+const noticeForm = document.querySelector('.ad-form');
 const titleField = noticeForm.querySelector('#title');
 const typeField = noticeForm.querySelector('#type');
 const priceField = noticeForm.querySelector('#price');
@@ -7,6 +6,7 @@ const roomField = noticeForm.querySelector('#room_number');
 const guestField = noticeForm.querySelector('#capacity');
 const checkinField = noticeForm.querySelector('#timein');
 const checkoutField = noticeForm.querySelector('#timeout');
+const addressField = noticeForm.querySelector('#address');
 
 const TEXT_ERRORS = {
   notForGuests: '100 комнат - не для гостей',
@@ -82,26 +82,22 @@ const onTypeFieldChange = () => {
 };
 
 // Синхронизация «Количество комнат» с полем «Количество мест»
-const guest = Number(guestField.value);
-const room = Number(roomField.value);
-
 const validateRoomsAndGuests = () =>
-  (guest <= room &&
-    room !== CAPACITY_OPTION.maxRoom &&
-    guest !== CAPACITY_OPTION.notGuests) ||
-  (room === CAPACITY_OPTION.maxRoom &&
-    guest === CAPACITY_OPTION.notGuests);
-
+  (Number(guestField.value) <= Number(roomField.value) &&
+    Number(roomField.value) !== CAPACITY_OPTION.maxRoom &&
+    Number(guestField.value) !== CAPACITY_OPTION.notGuests) ||
+  (Number(roomField.value) === CAPACITY_OPTION.maxRoom &&
+    Number(guestField.value) === CAPACITY_OPTION.notGuests);
 
 const getErrorGuestsMessage = () => {
-  if (room < guest) {
+  if (Number(roomField.value) < Number(guestField.value)) {
     return TEXT_ERRORS.roomsLessGuests;
   }
   if (
-    (room === CAPACITY_OPTION.maxRoom &&
-      guest !== CAPACITY_OPTION.notGuests) ||
-    (room !== CAPACITY_OPTION.maxRoom &&
-      guest === CAPACITY_OPTION.notGuests)
+    (Number(roomField.value) === CAPACITY_OPTION.maxRoom &&
+      Number(guestField.value) !== CAPACITY_OPTION.notGuests) ||
+    (Number(roomField.value) !== CAPACITY_OPTION.maxRoom &&
+      Number(guestField.value) === CAPACITY_OPTION.notGuests)
   ) {
     return TEXT_ERRORS.notForGuests;
   }
@@ -153,4 +149,4 @@ const onNoticeFormSubmit = (evt) => {
   pristine.validate();
 };
 
-export { onNoticeFormSubmit };
+export { onNoticeFormSubmit, addressField, priceField, noticeForm };

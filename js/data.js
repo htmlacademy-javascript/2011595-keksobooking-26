@@ -7,7 +7,7 @@ import {
   getRandomElements,
 } from './random-functions.js';
 
-const SIMILAR_ADVERTISEMENTS_COUNT = 1;
+const SIMILAR_ADVERTISEMENTS_COUNT = 10;
 const MIN_PRICE = 5000;
 const MAX_PRICE = 10000;
 const MAX_ROOM_COUNT = 10;
@@ -43,14 +43,7 @@ const PHOTOS_OF_HOUSING = [
 
 const TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 
-const FEATURES_OF_HOUSING = [
-  'wifi',
-  'dishwasher',
-  'parking',
-  'washer',
-  'elevator',
-  'conditioner',
-];
+const FEATURES_OF_HOUSING = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
 const CHECK_IN_TIME = ['12:00', '13:00', '14:00'];
 
@@ -71,11 +64,7 @@ const createAdvertisement = () => {
 
   const location = {
     lat: getRandomPositiveFloat(LATITUDE_FROM, LATITUDE_TO, DIGITS_AFTER_POINT),
-    lng: getRandomPositiveFloat(
-      LONGITUDE_FROM,
-      LONGITUDE_TO,
-      DIGITS_AFTER_POINT
-    ),
+    lng: getRandomPositiveFloat(LONGITUDE_FROM, LONGITUDE_TO, DIGITS_AFTER_POINT),
   };
 
   const offer = {
@@ -102,4 +91,4 @@ const createAdvertisement = () => {
 const createAdvertisements = () =>
   Array.from({ length: SIMILAR_ADVERTISEMENTS_COUNT }, createAdvertisement);
 
-export { createAdvertisements };
+export { createAdvertisements, DIGITS_AFTER_POINT };

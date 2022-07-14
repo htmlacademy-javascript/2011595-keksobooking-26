@@ -89,6 +89,16 @@ fieldset {
   background-color: #dddddd;
 }
 
+.ad-form__capacity {
+  display: block;
+}
+
+.ad-form__error-text {
+  color: #ff0016;
+  width: calc(100% - 20px);
+  display: block;
+  font-size: 12px;
+}
 
 /**
  * Фильтры объявления
