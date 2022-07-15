@@ -1,7 +1,8 @@
 import { noticeForm } from './activate-page.js';
 import { createPopup } from './popup.js';
 import { advertPin, CENTRE_CITY, mainPin, MAP_ZOOM } from './map-data.js';
-import { createMap, createPinMarker, setAddress } from './map-util.js';
+import {createMap, createPinMarker} from './map-util.js';
+import {setAddress} from './util.js';
 
 const noticeFormReset = noticeForm.querySelector('.ad-form__reset');
 

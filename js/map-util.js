@@ -22,12 +22,6 @@ const createMap = () => {
   return map;
 };
 
-const setAddress = ({ lat, lng }) => {
-  const latitude = Number(lat.toFixed(DIGITS_AFTER_POINT));
-  const longitude = Number(lng.toFixed(DIGITS_AFTER_POINT));
-  addressField.value = `${latitude}, ${longitude}`;
-};
-
 const createPinMarker = (latitude, longitude, draggable, icon) =>
   L.marker(
     {
@@ -40,4 +34,4 @@ const createPinMarker = (latitude, longitude, draggable, icon) =>
     }
   );
 
-export { createPinIcon, createMap, setAddress, createPinMarker };
+export { createPinIcon, createMap, createPinMarker };
