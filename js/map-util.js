@@ -1,7 +1,6 @@
 import { changeFormsState, noticeForm } from './activate-page.js';
-import { addressField, onNoticeFormSubmit } from './form-validation.js';
+import { onNoticeFormSubmit } from './form-validation.js';
 import { CENTRE_CITY, MAP_ZOOM } from './map-data.js';
-import { DIGITS_AFTER_POINT } from './data.js';
 
 const createPinIcon = ({ source, width, height, centerAnchor, bottomAnchor }) =>
   L.icon({ iconUrl: source, iconSize: [width, height], iconAnchor: [centerAnchor, bottomAnchor] });
