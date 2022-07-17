@@ -1,5 +1,6 @@
-import { noticeForm, priceField } from './form-validation.js';
+import {noticeForm, priceField} from './form-validation.js';
 import { EXTREME, STEP } from './slider-data.js';
+import {getValue, setValue} from './slider-util.js';
 
 const noticeFormSlider = noticeForm.querySelector('.ad-form__slider');
 
@@ -18,8 +19,7 @@ noUiSlider.create(noticeFormSlider, {
   },
 });
 
-noticeFormSlider.noUiSlider.on('update', () => {
-  priceField.value = noticeFormSlider.noUiSlider.get();
-});
+noticeFormSlider.noUiSlider.on('update', getValue);
+priceField.addEventListener('change', setValue);
 
 export { noticeFormSlider };
