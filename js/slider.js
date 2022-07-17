@@ -19,7 +19,7 @@ noUiSlider.create(noticeFormSlider, {
   },
 });
 
-noticeFormSlider.noUiSlider.on('update', getValue);
 priceField.addEventListener('change', setValue);
+noticeFormSlider.noUiSlider.on('update', getValue);
 
 export { noticeFormSlider };
