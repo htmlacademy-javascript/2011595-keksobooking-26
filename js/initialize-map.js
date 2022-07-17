@@ -7,7 +7,7 @@ import {setAddress} from './util.js';
 const noticeFormReset = noticeForm.querySelector('.ad-form__reset');
 
 // Инициализация карты, в случае успешной загрузки переводит форму в активное состояние и запускает валидацию
-const initializeMap = (similarAdds) => {
+const initMap = (similarAdds) => {
   const map = createMap();
   const markerGroup = L.layerGroup().addTo(map);
 
@@ -42,4 +42,4 @@ const initializeMap = (similarAdds) => {
   });
 };
 
-export { initializeMap };
+export { initMap };
