@@ -15,13 +15,11 @@ const typesHousingToRussian = {
   hotel: 'Отель',
 };
 
-const containerOfAdds = document.querySelector('.map__canvas');
 const addCardTemplate = document.querySelector('#card').content;
 const addCardPopup = addCardTemplate.querySelector('.popup');
 
 const similarAdds = createAdvertisements();
-
-similarAdds.forEach(({ author, offer }) => {
+const createPopup = ({ author, offer }) => {
   const { avatar } = author;
   const {
     title,
@@ -75,5 +73,7 @@ similarAdds.forEach(({ author, offer }) => {
 
   checkValueOfPhoto(photosContainer, photos);
 
-  containerOfAdds.appendChild(addElement);
-});
+  return addElement;
+};
+
+export { similarAdds, createPopup };

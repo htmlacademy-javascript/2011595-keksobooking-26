@@ -1,3 +1,6 @@
+import {DIGITS_AFTER_POINT} from './data.js';
+import {addressField} from './form-validation.js';
+
 const createNumbers = () => {
   const numbers = [];
   for (let i = 0; i < 10; i++) {
@@ -56,9 +59,7 @@ const fillInRoomsAndGuests = (rooms, guests, element) => {
     element.textContent = `для ${guests} ${fixGuestName(guests)}`;
   }
   if (rooms && guests) {
-    element.textContent = `${rooms} ${fixRoomName(
-      rooms
-    )} для ${guests} ${fixGuestName(guests)}`;
+    element.textContent = `${rooms} ${fixRoomName(rooms)} для ${guests} ${fixGuestName(guests)}`;
   }
 };
 
@@ -114,9 +115,7 @@ const checkContainOfChildElement = (
 ) => {
   element.forEach((elementListItem) => {
     const isNecessary = modifiersOfChildElement.some((modifierOfChildElement) =>
-      elementListItem.classList.contains(
-        `${childElement}--${modifierOfChildElement}`
-      )
+      elementListItem.classList.contains(`${childElement}--${modifierOfChildElement}`)
     );
 
     if (!isNecessary) {
@@ -141,6 +140,14 @@ const removeClass = (element, removedClass) => {
   element.classList.remove(removedClass);
 };
 
+const splitString = (stringToSplit, separator = ',') => stringToSplit.split(separator);
+
+const setAddress = ({ lat, lng }) => {
+  const latitude = Number(lat.toFixed(DIGITS_AFTER_POINT));
+  const longitude = Number(lng.toFixed(DIGITS_AFTER_POINT));
+  addressField.value = `${latitude}, ${longitude}`;
+};
+
 export {
   createNumbers,
   fixRoomName,
@@ -152,4 +159,6 @@ export {
   checkValueOfChild,
   addClass,
   removeClass,
+  splitString,
+  setAddress,
 };

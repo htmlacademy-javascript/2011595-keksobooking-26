@@ -1,14 +1,17 @@
-import { changeFormsState, noticeForm } from './activate-page.js';
-import { onNoticeFormSubmit } from './form-validation.js';
+import { changeFormsState } from './activate-page.js';
+import { initMap } from './initialize-map.js';
+import { similarAdds } from './popup.js';
+import './slider.js';
 
 // При открытии страница находится в неактивном состоянии:
 changeFormsState(false);
 // Загрузка и успешная инициализация карты
 const condition = true;
 if (condition) {
+  initMap(similarAdds);
   // Перевод страницы в активное состояние
-  changeFormsState(true);
+  // changeFormsState(true);
   // Вносить изменения в форму и отправлять её на сервер;
-  noticeForm.addEventListener('submit', onNoticeFormSubmit);
+  // noticeForm.addEventListener('submit', onNoticeFormSubmit);
   // Фильтрация.
 }
