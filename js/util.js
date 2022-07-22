@@ -1,13 +1,15 @@
-import {DIGITS_AFTER_POINT} from './data.js';
-import {addressField} from './form-validation.js';
+// import {DIGITS_AFTER_POINT} from './data.js';
+import { addressField } from './form-validation.js';
 
-const createNumbers = () => {
-  const numbers = [];
-  for (let i = 0; i < 10; i++) {
-    numbers[i] = i + 1;
-  }
-  return numbers;
-};
+// const createNumbers = () => {
+//   const numbers = [];
+//   for (let i = 0; i < 10; i++) {
+//     numbers[i] = i + 1;
+//   }
+//   return numbers;
+// };
+
+const DIGITS_AFTER_POINT = 5;
 
 const fixRoomName = (value) => {
   switch (value) {
@@ -40,7 +42,7 @@ const removeElement = (element) => {
 };
 
 const removeParentElement = (element) => {
-  element.parentElement.remove();
+  element.remove();
 };
 
 const checkValue = (element, value, property = 'textContent') => {
@@ -124,11 +126,11 @@ const checkContainOfChildElement = (
   });
 };
 
-const checkValueOfChild = (element, value) => {
+const checkValueOfChild = (list, value, parent) => {
   if (value) {
-    checkContainOfChildElement(element, value);
+    checkContainOfChildElement(list, value);
   } else {
-    removeParentElement(element);
+    removeParentElement(parent);
   }
 };
 
@@ -140,7 +142,7 @@ const removeClass = (element, removedClass) => {
   element.classList.remove(removedClass);
 };
 
-const splitString = (stringToSplit, separator = ',') => stringToSplit.split(separator);
+// const splitString = (stringToSplit, separator = ',') => stringToSplit.split(separator);
 
 const setAddress = ({ lat, lng }) => {
   const latitude = Number(lat.toFixed(DIGITS_AFTER_POINT));
@@ -149,7 +151,6 @@ const setAddress = ({ lat, lng }) => {
 };
 
 export {
-  createNumbers,
   fixRoomName,
   fixGuestName,
   checkValue,
@@ -159,6 +160,6 @@ export {
   checkValueOfChild,
   addClass,
   removeClass,
-  splitString,
   setAddress,
+  fillInElement,
 };

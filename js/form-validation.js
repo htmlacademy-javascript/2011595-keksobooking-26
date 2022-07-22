@@ -1,3 +1,8 @@
+import {sendData} from './api.js';
+import {changeConditionOfElement} from './activate-page-util.js';
+import {fillInElement} from './util.js';
+// import {resetPage} from './initialize-map.js';
+
 const noticeForm = document.querySelector('.ad-form');
 const titleField = noticeForm.querySelector('#title');
 const typeField = noticeForm.querySelector('#type');
@@ -7,6 +12,11 @@ const guestField = noticeForm.querySelector('#capacity');
 const checkinField = noticeForm.querySelector('#timein');
 const checkoutField = noticeForm.querySelector('#timeout');
 const addressField = noticeForm.querySelector('#address');
+const noticeFormSubmit = noticeForm.querySelector('.ad-form__submit');
+const noticeFormReset = noticeForm.querySelector('.ad-form__reset');
+
+const BUTTON_STATE_DEFAULT = 'Опубликовать';
+const BUTTON_STATE_PUBLICATION = 'Публикую...';
 
 const TEXT_ERRORS = {
   notForGuests: '100 комнат - не для гостей',
@@ -55,15 +65,14 @@ const getErrorTitleMessage = (value) => {
 };
 
 // Валидация поля «Цена за ночь» с зависимостью минимальной цены и плейсхолдера от поля «Тип жилья»
-const price = Number(priceField.value);
 
-const validatePrice = () => price >= TYPE_PRICE[typeField.value] && price <= priceField.max;
+const validatePrice = () => Number(priceField.value) >= TYPE_PRICE[typeField.value] && Number(priceField.value) <= priceField.max;
 
 const getErrorPriceMessage = () => {
-  if (price < TYPE_PRICE[typeField.value]) {
+  if (Number(priceField.value) < TYPE_PRICE[typeField.value]) {
     return `Минимальная цена должна быть больше ${TYPE_PRICE[typeField.value]}`;
   }
-  if (price > priceField.max) {
+  if (Number(priceField.value) > priceField.max) {
     return `Цена не должна превышать ${priceField.max}`;
   }
 };
@@ -144,9 +153,37 @@ pristine.addValidator(titleField, validateTitle, getErrorTitleMessage);
 pristine.addValidator(priceField, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guestField, validateRoomsAndGuests, getErrorGuestsMessage);
 
-const onNoticeFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+const stateSubmitButton = (condition) => {
+  if (condition){
+    changeConditionOfElement(noticeFormSubmit, condition);
+    fillInElement(noticeFormSubmit, BUTTON_STATE_PUBLICATION);
+  } else {
+    changeConditionOfElement(noticeFormSubmit, condition);
+    fillInElement(noticeFormSubmit, BUTTON_STATE_DEFAULT);
+  }
 };
 
-export { onNoticeFormSubmit, addressField, priceField, noticeForm };
+const setNoticeFormSubmit = (onSuccess, onError) => {
+  noticeForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      stateSubmitButton(true);
+      sendData(
+        () => {
+          onSuccess();
+          stateSubmitButton(false);
+          // resetPage();
+        },
+        () => {
+          onError();
+          stateSubmitButton(false);
+        },
+        new FormData(evt.target)
+      );
+    }
+  });
+};
+
+export { addressField, priceField, noticeForm, noticeFormReset, setNoticeFormSubmit};

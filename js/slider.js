@@ -21,5 +21,7 @@ noUiSlider.create(noticeFormSlider, {
 
 priceField.addEventListener('change', setValue);
 noticeFormSlider.noUiSlider.on('update', getValue);
+const resetSlider = () => noticeFormSlider.noUiSlider.set(EXTREME.min);
 
-export { noticeFormSlider };
+
+export { noticeFormSlider, resetSlider };

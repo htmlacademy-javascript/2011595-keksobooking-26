@@ -1,14 +1,14 @@
-import { splitString } from './util.js';
-import { addressField } from './form-validation.js';
+// import { splitString } from './util.js';
+// import { addressField } from './form-validation.js';
 import { createPinIcon } from './map-util.js';
 
 const MAP_ZOOM = 13;
 
-const coordinates = splitString(addressField.value);
+// const coordinates = splitString(addressField.value);
 
 const CENTRE_CITY = {
-  lat: coordinates[0],
-  lng: coordinates[1],
+  lat: 35.675,
+  lng: 139.75,
 };
 
 const MAIN_PIN = {
