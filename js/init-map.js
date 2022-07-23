@@ -1,3 +1,4 @@
+import './form-image.js';
 import { changeFormsState } from './activate-page.js';
 import { createMap, mainPinMarker } from './map-util.js';
 import { resetFilterForm, resetNoticeForm } from './reset-forms.js';
