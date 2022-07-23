@@ -1,6 +1,9 @@
 // Получаем данные от сервера
-const getData = (onSuccess, onError) => {
-  fetch('https://26.javascript.pages.academy/keksobooking/data')
+const URL_GET = 'https://26.javascript.pages.academy/keksobooking/data';
+const URL_SEND = 'https://26.javascript.pages.academy/keksobooking';
+
+export const getData = (onSuccess, onError) => {
+  fetch(URL_GET)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -16,8 +19,8 @@ const getData = (onSuccess, onError) => {
     });
 };
 
-const sendData = (onSuccess, onError, body) => {
-  fetch('https://26.javascript.pages.academy/keksobooking', {
+export const sendData = (onSuccess, onError, body) => {
+  fetch(URL_SEND, {
     method: 'POST',
     body,
   })
@@ -32,5 +35,3 @@ const sendData = (onSuccess, onError, body) => {
       onError();
     });
 };
-
-export { getData, sendData };

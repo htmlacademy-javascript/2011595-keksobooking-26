@@ -2,7 +2,7 @@ import {noticeForm, priceField} from './form-validation.js';
 import { EXTREME, STEP } from './slider-data.js';
 import {getValue, setValue} from './slider-util.js';
 
-const noticeFormSlider = noticeForm.querySelector('.ad-form__slider');
+export const noticeFormSlider = noticeForm.querySelector('.ad-form__slider');
 
 noUiSlider.create(noticeFormSlider, {
   range: EXTREME,
@@ -21,7 +21,4 @@ noUiSlider.create(noticeFormSlider, {
 
 priceField.addEventListener('change', setValue);
 noticeFormSlider.noUiSlider.on('update', getValue);
-const resetSlider = () => noticeFormSlider.noUiSlider.set(EXTREME.min);
-
-
-export { noticeFormSlider, resetSlider };
+export const resetSlider = () => noticeFormSlider.noUiSlider.set(EXTREME.min);

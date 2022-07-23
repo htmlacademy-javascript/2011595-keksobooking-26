@@ -2,7 +2,7 @@ const pageBody = document.querySelector('body');
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const createSuccessMessage = () => {
+export const createSuccessMessage = () => {
   const successMessageTemplate = document
     .querySelector('#success')
     .content.querySelector('.success');
@@ -24,7 +24,7 @@ const createSuccessMessage = () => {
   pageBody.append(successMessage);
 };
 
-const createErrorMessage = () => {
+export const createErrorMessage = () => {
   const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   const errorMessage = errorMessageTemplate.cloneNode(true);
   const errorMessageButton = errorMessage.querySelector('.error__button');
@@ -48,5 +48,3 @@ const createErrorMessage = () => {
 
   pageBody.append(errorMessage);
 };
-
-export { createSuccessMessage, createErrorMessage };

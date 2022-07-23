@@ -1,25 +1,12 @@
-import {changeFormsState} from './activate-page.js';
-import { CENTRE_CITY, MAP_ZOOM } from './map-data.js';
-import { setNoticeFormSubmit} from './form-validation.js';
-import {createErrorMessage, createSuccessMessage} from './massage.js';
-
-const createPinIcon = ({ source, width, height, centerAnchor, bottomAnchor }) =>
-  L.icon({ iconUrl: source, iconSize: [width, height], iconAnchor: [centerAnchor, bottomAnchor] });
-
+import { changeFormsState } from './activate-page.js';
+import {ADVERT_PIN, CENTRE_CITY, MAIN_PIN, MAP_ZOOM} from './map-data.js';
+import { noticeForm, onNoticeFormSubmit } from './form-validation.js';
+import {getData} from './api.js';
+import {createPopup} from './popup.js';
 
 const successfulLoadMap = () => {
   changeFormsState(true);
-  setNoticeFormSubmit(createSuccessMessage, createErrorMessage);
-};
-
-const createMap = () => {
-  const map = L.map('map-canvas').on('load', successfulLoadMap).setView(CENTRE_CITY, MAP_ZOOM);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  return map;
+  noticeForm.addEventListener('submit', onNoticeFormSubmit);
 };
 
 const createPinMarker = (latitude, longitude, draggable, icon) =>
@@ -34,4 +21,48 @@ const createPinMarker = (latitude, longitude, draggable, icon) =>
     }
   );
 
-export { createPinIcon, createMap, createPinMarker };
+const createPinIcon = ({ source, width, height, centerAnchor, bottomAnchor }) =>
+  L.icon({ iconUrl: source, iconSize: [width, height], iconAnchor: [centerAnchor, bottomAnchor] });
+
+export const mainPin = createPinIcon(MAIN_PIN);
+
+// Создание и добавление на карту основной метки
+export const mainPinMarker = createPinMarker(CENTRE_CITY.lat, CENTRE_CITY.lng, true, mainPin);
+
+export const createMap = () => {
+  const map = L.map('map-canvas').on('load', successfulLoadMap).setView(CENTRE_CITY, MAP_ZOOM);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  mainPinMarker.addTo(map);
+
+  const advertPin = createPinIcon(ADVERT_PIN);
+
+  const createAdvertPinMarker = (advert) => {
+    const markerGroup = L.layerGroup().addTo(map);
+    const advertPinMarker = createPinMarker(advert.location.lat, advert.location.lng, false, advertPin);
+    advertPinMarker.addTo(markerGroup).bindPopup(createPopup(advert));
+  };
+
+  const createMarkersForAdverts = (advertsData) => {
+    advertsData.forEach((advert) => {
+      createAdvertPinMarker(advert);
+    });
+  };
+
+  const onSuccessSlava = (data) => {
+    // нарисовать пины 10 штук
+    createMarkersForAdverts(data);
+  }
+
+  const onErrorSlava = () => {
+    console.log('ошибка Слава ')
+  }
+
+  // Получить данные
+  getData(onSuccessSlava, onErrorSlava);
+
+  return map;
+};

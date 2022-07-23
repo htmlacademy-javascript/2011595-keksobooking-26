@@ -17,7 +17,7 @@ const typesHousingToRussian = {
 const addCardTemplate = document.querySelector('#card').content;
 const addCardPopup = addCardTemplate.querySelector('.popup');
 
-const createPopup = ({ author, offer }) => {
+export const createPopup = ({ author, offer }) => {
   const { avatar } = author;
   const {
     title,
@@ -73,5 +73,3 @@ const createPopup = ({ author, offer }) => {
 
   return addElement;
 };
-
-export { createPopup };

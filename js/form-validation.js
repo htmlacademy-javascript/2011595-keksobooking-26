@@ -1,19 +1,21 @@
-import {sendData} from './api.js';
-import {changeConditionOfElement} from './activate-page-util.js';
-import {fillInElement} from './util.js';
-// import {resetPage} from './initialize-map.js';
+import { sendData } from './api.js';
+// import { onNoticeFormReset } from './initialize-map.js';
+import { createErrorMessage, createSuccessMessage } from './massage.js';
+import { changeConditionOfElement } from './activate-page-util.js';
+import { fillInElement } from './util.js';
+import {onNoticeFormReset} from './initialize-map.js';
 
-const noticeForm = document.querySelector('.ad-form');
+export const noticeForm = document.querySelector('.ad-form');
 const titleField = noticeForm.querySelector('#title');
 const typeField = noticeForm.querySelector('#type');
-const priceField = noticeForm.querySelector('#price');
+export const priceField = noticeForm.querySelector('#price');
 const roomField = noticeForm.querySelector('#room_number');
 const guestField = noticeForm.querySelector('#capacity');
 const checkinField = noticeForm.querySelector('#timein');
 const checkoutField = noticeForm.querySelector('#timeout');
-const addressField = noticeForm.querySelector('#address');
+export const addressField = noticeForm.querySelector('#address');
 const noticeFormSubmit = noticeForm.querySelector('.ad-form__submit');
-const noticeFormReset = noticeForm.querySelector('.ad-form__reset');
+export const noticeFormReset = noticeForm.querySelector('.ad-form__reset');
 
 const BUTTON_STATE_DEFAULT = 'Опубликовать';
 const BUTTON_STATE_PUBLICATION = 'Публикую...';
@@ -64,9 +66,11 @@ const getErrorTitleMessage = (value) => {
   }
 };
 
-// Валидация поля «Цена за ночь» с зависимостью минимальной цены и плейсхолдера от поля «Тип жилья»
+// // Валидация поля «Цена за ночь» с зависимостью минимальной цены и плейсхолдера от поля «Тип жилья»
 
-const validatePrice = () => Number(priceField.value) >= TYPE_PRICE[typeField.value] && Number(priceField.value) <= priceField.max;
+const validatePrice = () =>
+  Number(priceField.value) >= TYPE_PRICE[typeField.value] &&
+  Number(priceField.value) <= priceField.max;
 
 const getErrorPriceMessage = () => {
   if (Number(priceField.value) < TYPE_PRICE[typeField.value]) {
@@ -90,7 +94,7 @@ const onTypeFieldChange = () => {
   pristine.validate(priceField);
 };
 
-// Синхронизация «Количество комнат» с полем «Количество мест»
+// // Синхронизация «Количество комнат» с полем «Количество мест»
 const validateRoomsAndGuests = () =>
   (Number(guestField.value) <= Number(roomField.value) &&
     Number(roomField.value) !== CAPACITY_OPTION.maxRoom &&
@@ -154,7 +158,7 @@ pristine.addValidator(priceField, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guestField, validateRoomsAndGuests, getErrorGuestsMessage);
 
 const stateSubmitButton = (condition) => {
-  if (condition){
+  if (condition) {
     changeConditionOfElement(noticeFormSubmit, condition);
     fillInElement(noticeFormSubmit, BUTTON_STATE_PUBLICATION);
   } else {
@@ -163,27 +167,30 @@ const stateSubmitButton = (condition) => {
   }
 };
 
-const setNoticeFormSubmit = (onSuccess, onError) => {
-  noticeForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    const isValid = pristine.validate();
-    if (isValid) {
-      stateSubmitButton(true);
-      sendData(
-        () => {
-          onSuccess();
-          stateSubmitButton(false);
-          // resetPage();
-        },
-        () => {
-          onError();
-          stateSubmitButton(false);
-        },
-        new FormData(evt.target)
-      );
-    }
-  });
+const onSuccess = () => {
+  createSuccessMessage();
+  onNoticeFormReset();
+};
+const onError = () => {
+  createErrorMessage();
 };
 
-export { addressField, priceField, noticeForm, noticeFormReset, setNoticeFormSubmit};
+export const onNoticeFormSubmit = (evt) => {
+  evt.preventDefault();
+
+  const isValid = pristine.validate();
+  if (isValid) {
+    stateSubmitButton(true);
+    sendData(
+      () => {
+        onSuccess();
+        stateSubmitButton(false);
+      },
+      () => {
+        onError();
+        stateSubmitButton(false);
+      },
+      new FormData(evt.target)
+    );
+  }
+};

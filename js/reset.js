@@ -1,6 +1,5 @@
-import { filterForm, noticeForm } from './activate-page.js';
+import { filterForm } from './activate-page.js';
+import {noticeForm} from './form-validation.js';
 
-const resetFilterForm = () => filterForm.reset();
-const resetNoticeForm = () => noticeForm.reset();
-
-export { resetFilterForm, resetNoticeForm };
+export const resetFilterForm = () => filterForm.reset();
+export const resetNoticeForm = () => noticeForm.reset();

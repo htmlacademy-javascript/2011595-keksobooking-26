@@ -24,7 +24,7 @@ const fixGuestName = (value) => {
   }
 };
 
-const fillInElement = (element, value, property = 'textContent') => {
+export const fillInElement = (element, value, property = 'textContent') => {
   element[property] = value;
 };
 
@@ -36,7 +36,7 @@ const removeParentElement = (element) => {
   element.remove();
 };
 
-const checkValue = (element, value, property = 'textContent') => {
+export const checkValue = (element, value, property = 'textContent') => {
   if (value) {
     fillInElement(element, value, property);
   } else {
@@ -56,7 +56,7 @@ const fillInRoomsAndGuests = (rooms, guests, element) => {
   }
 };
 
-const checkValueOfRoomsAndGuests = (element, rooms, guests) => {
+export const checkValueOfRoomsAndGuests = (element, rooms, guests) => {
   if (!rooms && !guests) {
     removeElement(element);
   } else {
@@ -76,7 +76,7 @@ const fillInCheckoutAndCheckin = (element, checkout, checkin) => {
   }
 };
 
-const checkValueOfCheckoutAndCheckin = (element, checkout, checkin) => {
+export const checkValueOfCheckoutAndCheckin = (element, checkout, checkin) => {
   if (!checkout && !checkin) {
     removeElement(element);
   } else {
@@ -93,7 +93,7 @@ const fillInPhoto = (element, photos) => {
   });
 };
 
-const checkValueOfPhoto = (element, photos) => {
+export const checkValueOfPhoto = (element, photos) => {
   if (photos) {
     fillInPhoto(element, photos);
   } else {
@@ -117,7 +117,7 @@ const checkContainOfChildElement = (
   });
 };
 
-const checkValueOfChild = (list, value, parent) => {
+export const checkValueOfChild = (list, value, parent) => {
   if (value) {
     checkContainOfChildElement(list, value);
   } else {
@@ -125,30 +125,30 @@ const checkValueOfChild = (list, value, parent) => {
   }
 };
 
-const addClass = (element, addedClass) => {
+export const addClass = (element, addedClass) => {
   element.classList.add(addedClass);
 };
 
-const removeClass = (element, removedClass) => {
+export const removeClass = (element, removedClass) => {
   element.classList.remove(removedClass);
 };
 
-const setAddress = ({ lat, lng }) => {
+export const setAddress = ({ lat, lng }) => {
   const latitude = Number(lat.toFixed(DIGITS_AFTER_POINT));
   const longitude = Number(lng.toFixed(DIGITS_AFTER_POINT));
   addressField.value = `${latitude}, ${longitude}`;
 };
 
-export {
-  fixRoomName,
-  fixGuestName,
-  checkValue,
-  checkValueOfRoomsAndGuests,
-  checkValueOfCheckoutAndCheckin,
-  checkValueOfPhoto,
-  checkValueOfChild,
-  addClass,
-  removeClass,
-  setAddress,
-  fillInElement,
-};
+// export {
+//   fixRoomName,
+//   fixGuestName,
+//   checkValue,
+//   checkValueOfRoomsAndGuests,
+//   checkValueOfCheckoutAndCheckin,
+//   checkValueOfPhoto,
+//   checkValueOfChild,
+//   addClass,
+//   removeClass,
+//   setAddress,
+//   fillInElement,
+// };

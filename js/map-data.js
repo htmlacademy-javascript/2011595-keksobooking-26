@@ -1,13 +1,11 @@
-import { createPinIcon } from './map-util.js';
+export const MAP_ZOOM = 13;
 
-const MAP_ZOOM = 13;
-
-const CENTRE_CITY = {
+export const CENTRE_CITY = {
   lat: 35.675,
   lng: 139.75,
 };
 
-const MAIN_PIN = {
+export const MAIN_PIN = {
   source: './img/main-pin.svg',
   width: 52,
   height: 52,
@@ -15,7 +13,7 @@ const MAIN_PIN = {
   bottomAnchor: 52,
 };
 
-const ADVERT_PIN = {
+export const ADVERT_PIN = {
   source: './img/pin.svg',
   width: 40,
   height: 40,
@@ -23,7 +21,4 @@ const ADVERT_PIN = {
   bottomAnchor: 40,
 };
 
-const mainPin = createPinIcon(MAIN_PIN);
-const advertPin = createPinIcon(ADVERT_PIN);
 
-export { MAP_ZOOM, CENTRE_CITY, mainPin, advertPin };
