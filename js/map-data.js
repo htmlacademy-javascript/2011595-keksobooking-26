@@ -1,10 +1,6 @@
-// import { splitString } from './util.js';
-// import { addressField } from './form-validation.js';
 import { createPinIcon } from './map-util.js';
 
 const MAP_ZOOM = 13;
-
-// const coordinates = splitString(addressField.value);
 
 const CENTRE_CITY = {
   lat: 35.675,

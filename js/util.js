@@ -1,13 +1,4 @@
-// import {DIGITS_AFTER_POINT} from './data.js';
 import { addressField } from './form-validation.js';
-
-// const createNumbers = () => {
-//   const numbers = [];
-//   for (let i = 0; i < 10; i++) {
-//     numbers[i] = i + 1;
-//   }
-//   return numbers;
-// };
 
 const DIGITS_AFTER_POINT = 5;
 
@@ -141,8 +132,6 @@ const addClass = (element, addedClass) => {
 const removeClass = (element, removedClass) => {
   element.classList.remove(removedClass);
 };
-
-// const splitString = (stringToSplit, separator = ',') => stringToSplit.split(separator);
 
 const setAddress = ({ lat, lng }) => {
   const latitude = Number(lat.toFixed(DIGITS_AFTER_POINT));
