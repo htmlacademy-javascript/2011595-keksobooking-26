@@ -417,6 +417,13 @@ fieldset {
   margin-right: 14px;
 }
 
+.ad-form__photo-image {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+}
+
 .ad-form__slider.noUi-target:not(#fake-id) {
   width: calc(100% - 20px);
   height: 5px;
@@ -608,6 +615,7 @@ fieldset {
 }
 
 .ad-form__photo {
+  position: relative;
   margin-right: 10px;
   margin-bottom: 10px;
 

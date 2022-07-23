@@ -1,1 +1,2 @@
-import './initialize-map.js';
+import './init-map.js';
+import './form-image.js';

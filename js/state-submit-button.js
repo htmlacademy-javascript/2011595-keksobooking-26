@@ -6,7 +6,7 @@ const TEXT_STATE_PUBLICATION = 'Публикую...';
 
 const noticeFormSubmit = document.querySelector('.ad-form__submit');
 
-export const changeStateOfElement = (element, text, condition) => {
+const changeStateOfElement = (element, text, condition) => {
   changeConditionOfElement(element, !condition);
   fillInElement(element, text);
 };

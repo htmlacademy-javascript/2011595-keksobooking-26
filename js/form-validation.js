@@ -1,6 +1,6 @@
 import { sendData } from './api.js';
 import { createErrorMessage, createSuccessMessage } from './massage.js';
-import { onNoticeFormReset } from './initialize-map.js';
+import { onNoticeFormReset } from './init-map.js';
 import { checkStateOfSubmit } from './state-submit-button.js';
 import { CAPACITY_OPTION, TEXT_ERRORS, TITLE_LENGTH, TYPE_PRICE } from './form-validation-data.js';
 
