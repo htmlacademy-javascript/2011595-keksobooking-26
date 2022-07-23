@@ -3,7 +3,7 @@ import { ADVERT_PIN, CENTRE_CITY, MAIN_PIN, MAP_ZOOM, MAX_ADVERTS } from './map-
 import { getData } from './api.js';
 import { createPopup } from './popup.js';
 import { noticeForm, onNoticeFormSubmit } from './form-validation.js';
-import {createErrorMessageForGetData} from './massage.js';
+import { createErrorMessageLoad } from './massage.js';
 
 export const successfulLoadMap = () => {
   changeFormsState(true);
@@ -58,17 +58,17 @@ export const createMap = () => {
     });
   };
 
-  const onSuccessSlava = (data) => {
+  const onSuccessLoad = (data) => {
     // нарисовать пины 10 штук
     createMarkersForAdverts(data.slice(0, MAX_ADVERTS));
   };
 
-  const onErrorSlava = () => {
-    createErrorMessageForGetData();
+  const onErrorLoad = () => {
+    createErrorMessageLoad();
   };
 
   // Получить данные
-  getData(onSuccessSlava, onErrorSlava);
+  getData(onSuccessLoad, onErrorLoad);
 
   return map;
 };

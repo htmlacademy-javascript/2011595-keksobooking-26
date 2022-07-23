@@ -4,7 +4,7 @@ import {getValue} from './slider-util.js';
 
 export const noticeFormSlider = noticeForm.querySelector('.ad-form__slider');
 
-export const resetSlider = () => noticeFormSlider.noUiSlider.set(10);
+export const resetSlider = () => noticeFormSlider.noUiSlider.set(EXTREME.min);
 
 noUiSlider.create(noticeFormSlider, {
   range: EXTREME,

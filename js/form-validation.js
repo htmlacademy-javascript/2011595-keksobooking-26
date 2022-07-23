@@ -1,8 +1,8 @@
 import { sendData } from './api.js';
 import { createErrorMessage, createSuccessMessage } from './massage.js';
-import { changeConditionOfElement } from './activate-page-util.js';
-import { fillInElement } from './util.js';
 import {onNoticeFormReset} from './initialize-map.js';
+import { checkStateOfSubmit} from './state-submit-button.js';
+import {CAPACITY_OPTION, TEXT_ERRORS, TITLE_LENGTH, TYPE_PRICE} from './form-validation-data.js';
 
 export const noticeForm = document.querySelector('.ad-form');
 const titleField = noticeForm.querySelector('#title');
@@ -13,33 +13,6 @@ const guestField = noticeForm.querySelector('#capacity');
 const checkinField = noticeForm.querySelector('#timein');
 const checkoutField = noticeForm.querySelector('#timeout');
 export const addressField = noticeForm.querySelector('#address');
-const noticeFormSubmit = noticeForm.querySelector('.ad-form__submit');
-
-const BUTTON_STATE_DEFAULT = 'Опубликовать';
-const BUTTON_STATE_PUBLICATION = 'Публикую...';
-
-const TEXT_ERRORS = {
-  notForGuests: '100 комнат - не для гостей',
-  roomsLessGuests: 'Количество гостей не должно превышать количество комнат',
-};
-
-const TITLE_LENGTH = {
-  min: 30,
-  max: 100,
-};
-
-const TYPE_PRICE = {
-  bungalow: 0,
-  flat: 1000,
-  hotel: 3000,
-  house: 5000,
-  palace: 10000,
-};
-
-const CAPACITY_OPTION = {
-  notGuests: 0,
-  maxRoom: 100,
-};
 
 const pristine = new Pristine(noticeForm, {
   classTo: 'ad-form__element',
@@ -51,7 +24,6 @@ const pristine = new Pristine(noticeForm, {
 });
 
 // Валидация заголовка объявления
-
 const validateTitle = (value) =>
   value.length >= TITLE_LENGTH.min && value.length <= TITLE_LENGTH.max;
 
@@ -64,7 +36,7 @@ const getErrorTitleMessage = (value) => {
   }
 };
 
-// // Валидация поля «Цена за ночь» с зависимостью минимальной цены и плейсхолдера от поля «Тип жилья»
+// Валидация поля «Цена за ночь» с зависимостью минимальной цены и плейсхолдера от поля «Тип жилья»
 
 const validatePrice = () =>
   Number(priceField.value) >= TYPE_PRICE[typeField.value] &&
@@ -155,20 +127,11 @@ pristine.addValidator(titleField, validateTitle, getErrorTitleMessage);
 pristine.addValidator(priceField, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guestField, validateRoomsAndGuests, getErrorGuestsMessage);
 
-const stateSubmitButton = (condition) => {
-  if (condition) {
-    changeConditionOfElement(noticeFormSubmit, condition);
-    fillInElement(noticeFormSubmit, BUTTON_STATE_PUBLICATION);
-  } else {
-    changeConditionOfElement(noticeFormSubmit, condition);
-    fillInElement(noticeFormSubmit, BUTTON_STATE_DEFAULT);
-  }
-};
-
 const onSuccess = () => {
   createSuccessMessage();
   onNoticeFormReset();
 };
+
 const onError = () => {
   createErrorMessage();
 };
@@ -178,15 +141,15 @@ export const onNoticeFormSubmit = (evt) => {
 
   const isValid = pristine.validate();
   if (isValid) {
-    stateSubmitButton(true);
+    checkStateOfSubmit(true);
     sendData(
       () => {
         onSuccess();
-        stateSubmitButton(false);
+        checkStateOfSubmit(false);
       },
       () => {
         onError();
-        stateSubmitButton(false);
+        checkStateOfSubmit(false);
       },
       new FormData(evt.target)
     );

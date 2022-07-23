@@ -1,3 +1,8 @@
+import {checkValue} from './util.js';
+
+const TEXT_BUTTON = 'Перезагрузить страницу';
+const TEXT_NOTICE = 'Ошибка получения данных с сервера';
+
 const pageBody = document.querySelector('body');
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
@@ -49,18 +54,14 @@ export const createErrorMessage = () => {
   pageBody.append(errorMessage);
 };
 
-export const createErrorMessageForGetData = () => {
+export const createErrorMessageLoad = () => {
   const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   const errorMessageLoad = errorMessageTemplate.cloneNode(true);
   const errorMessageButtonLoad = errorMessageLoad.querySelector('.error__button');
   const errorMessageTextLoad = errorMessageLoad.querySelector('.error__message');
 
-  errorMessageButtonLoad.textContent = 'Перезагрузить страницу';
-  errorMessageTextLoad.textContent = 'Ошибка получения данных с сервера';
-
-  errorMessageButtonLoad.addEventListener('click', () => {
-    window.location.reload();
-  });
+  checkValue(errorMessageButtonLoad, TEXT_BUTTON);
+  checkValue(errorMessageTextLoad, TEXT_NOTICE);
 
   document.addEventListener('click', (evt) => {
     if (evt.target === errorMessageLoad) {
@@ -73,6 +74,10 @@ export const createErrorMessageForGetData = () => {
       evt.preventDefault();
       errorMessageLoad.remove();
     }
+  });
+
+  errorMessageButtonLoad.addEventListener('click', () => {
+    window.location.reload();
   });
 
   pageBody.append(errorMessageLoad);
