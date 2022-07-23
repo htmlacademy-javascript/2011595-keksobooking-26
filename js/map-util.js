@@ -1,10 +1,11 @@
 import { changeFormsState } from './activate-page.js';
-import {ADVERT_PIN, CENTRE_CITY, MAIN_PIN, MAP_ZOOM} from './map-data.js';
+import { ADVERT_PIN, CENTRE_CITY, MAIN_PIN, MAP_ZOOM, MAX_ADVERTS } from './map-data.js';
+import { getData } from './api.js';
+import { createPopup } from './popup.js';
 import { noticeForm, onNoticeFormSubmit } from './form-validation.js';
-import {getData} from './api.js';
-import {createPopup} from './popup.js';
+import {createErrorMessageForGetData} from './massage.js';
 
-const successfulLoadMap = () => {
+export const successfulLoadMap = () => {
   changeFormsState(true);
   noticeForm.addEventListener('submit', onNoticeFormSubmit);
 };
@@ -42,7 +43,12 @@ export const createMap = () => {
 
   const createAdvertPinMarker = (advert) => {
     const markerGroup = L.layerGroup().addTo(map);
-    const advertPinMarker = createPinMarker(advert.location.lat, advert.location.lng, false, advertPin);
+    const advertPinMarker = createPinMarker(
+      advert.location.lat,
+      advert.location.lng,
+      false,
+      advertPin
+    );
     advertPinMarker.addTo(markerGroup).bindPopup(createPopup(advert));
   };
 
@@ -54,12 +60,12 @@ export const createMap = () => {
 
   const onSuccessSlava = (data) => {
     // нарисовать пины 10 штук
-    createMarkersForAdverts(data);
-  }
+    createMarkersForAdverts(data.slice(0, MAX_ADVERTS));
+  };
 
   const onErrorSlava = () => {
-    console.log('ошибка Слава ')
-  }
+    createErrorMessageForGetData();
+  };
 
   // Получить данные
   getData(onSuccessSlava, onErrorSlava);

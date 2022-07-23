@@ -138,17 +138,3 @@ export const setAddress = ({ lat, lng }) => {
   const longitude = Number(lng.toFixed(DIGITS_AFTER_POINT));
   addressField.value = `${latitude}, ${longitude}`;
 };
-
-// export {
-//   fixRoomName,
-//   fixGuestName,
-//   checkValue,
-//   checkValueOfRoomsAndGuests,
-//   checkValueOfCheckoutAndCheckin,
-//   checkValueOfPhoto,
-//   checkValueOfChild,
-//   addClass,
-//   removeClass,
-//   setAddress,
-//   fillInElement,
-// };

@@ -1,5 +1,4 @@
 import { sendData } from './api.js';
-// import { onNoticeFormReset } from './initialize-map.js';
 import { createErrorMessage, createSuccessMessage } from './massage.js';
 import { changeConditionOfElement } from './activate-page-util.js';
 import { fillInElement } from './util.js';
@@ -15,7 +14,6 @@ const checkinField = noticeForm.querySelector('#timein');
 const checkoutField = noticeForm.querySelector('#timeout');
 export const addressField = noticeForm.querySelector('#address');
 const noticeFormSubmit = noticeForm.querySelector('.ad-form__submit');
-export const noticeFormReset = noticeForm.querySelector('.ad-form__reset');
 
 const BUTTON_STATE_DEFAULT = 'Опубликовать';
 const BUTTON_STATE_PUBLICATION = 'Публикую...';

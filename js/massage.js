@@ -48,3 +48,32 @@ export const createErrorMessage = () => {
 
   pageBody.append(errorMessage);
 };
+
+export const createErrorMessageForGetData = () => {
+  const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+  const errorMessageLoad = errorMessageTemplate.cloneNode(true);
+  const errorMessageButtonLoad = errorMessageLoad.querySelector('.error__button');
+  const errorMessageTextLoad = errorMessageLoad.querySelector('.error__message');
+
+  errorMessageButtonLoad.textContent = 'Перезагрузить страницу';
+  errorMessageTextLoad.textContent = 'Ошибка получения данных с сервера';
+
+  errorMessageButtonLoad.addEventListener('click', () => {
+    window.location.reload();
+  });
+
+  document.addEventListener('click', (evt) => {
+    if (evt.target === errorMessageLoad) {
+      errorMessageLoad.remove();
+    }
+  });
+
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      errorMessageLoad.remove();
+    }
+  });
+
+  pageBody.append(errorMessageLoad);
+};

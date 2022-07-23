@@ -21,4 +21,5 @@ export const ADVERT_PIN = {
   bottomAnchor: 40,
 };
 
+export const MAX_ADVERTS = 10;
 

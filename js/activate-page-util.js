@@ -13,24 +13,17 @@ export const changeClassOfElement = (element, condition, stateClass = CLASS_FORM
 export const changeConditionOfElement = (element, condition) => {
   element.disabled = !condition;
 };
-//
-// const changeConditionOfSlider = (element, condition) => {
-//   if (condition) {
-//     element.removeAttribute('disabled');
-//   } else {
-//     element.setAttribute('disabled', condition);
-//   }
-// };
-//
+
+export const changeConditionOfSlider = (element, condition) => {
+  if (condition) {
+    element.removeAttribute('disabled');
+  } else {
+    element.setAttribute('disabled', condition);
+  }
+};
+
 export const changeConditionOfCollection = (collection, condition) => {
   collection.forEach((element) => {
     changeConditionOfElement(element, condition);
   });
 };
-//
-// export {
-//   changeClassOfElement,
-//   changeConditionOfCollection,
-//   changeConditionOfElement,
-//   changeConditionOfSlider,
-// };
