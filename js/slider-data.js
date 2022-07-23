@@ -4,4 +4,3 @@ export const EXTREME = {
 };
 
 export const STEP = 1000;
-

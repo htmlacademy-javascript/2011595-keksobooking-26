@@ -1,10 +1,11 @@
 import {
   changeClassOfElement,
   changeConditionOfCollection,
-  changeConditionOfElement, changeConditionOfSlider,
+  changeConditionOfElement,
+  changeConditionOfSlider,
 } from './activate-page-util.js';
 import { noticeForm } from './form-validation.js';
-import {noticeFormSlider} from './slider.js';
+import { noticeFormSlider } from './slider.js';
 
 export const filterForm = document.querySelector('.map__filters');
 const formHeader = noticeForm.querySelector('.ad-form-header');

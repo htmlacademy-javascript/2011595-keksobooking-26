@@ -1,4 +1,4 @@
-import {checkValue} from './util.js';
+import { checkValue } from './util.js';
 
 const TEXT_BUTTON = 'Перезагрузить страницу';
 const TEXT_NOTICE = 'Ошибка получения данных с сервера';

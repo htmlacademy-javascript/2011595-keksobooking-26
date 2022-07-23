@@ -1,8 +1,8 @@
 import { sendData } from './api.js';
 import { createErrorMessage, createSuccessMessage } from './massage.js';
-import {onNoticeFormReset} from './initialize-map.js';
-import { checkStateOfSubmit} from './state-submit-button.js';
-import {CAPACITY_OPTION, TEXT_ERRORS, TITLE_LENGTH, TYPE_PRICE} from './form-validation-data.js';
+import { onNoticeFormReset } from './initialize-map.js';
+import { checkStateOfSubmit } from './state-submit-button.js';
+import { CAPACITY_OPTION, TEXT_ERRORS, TITLE_LENGTH, TYPE_PRICE } from './form-validation-data.js';
 
 export const noticeForm = document.querySelector('.ad-form');
 const titleField = noticeForm.querySelector('#title');

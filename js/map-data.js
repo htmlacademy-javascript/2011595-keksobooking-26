@@ -22,4 +22,3 @@ export const ADVERT_PIN = {
 };
 
 export const MAX_ADVERTS = 10;
-
