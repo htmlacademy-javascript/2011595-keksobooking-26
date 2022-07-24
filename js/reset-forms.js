@@ -13,8 +13,7 @@ const  resetImage = (img) => {
 };
 
 const  resetContainer = (container) => {
-  container.style.paddingLeft = '15px';
-  container.style.paddingRight = '15px';
+  container.style.padding = '0px 15px';
 };
 
 const resetImages = () => {
