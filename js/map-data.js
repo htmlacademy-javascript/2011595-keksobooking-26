@@ -22,3 +22,8 @@ export const ADVERT_PIN = {
 };
 
 export const MAX_ADVERTS = 10;
+
+export const FILTER_PRICE = {
+  low: 10000,
+  high: 50000,
+};

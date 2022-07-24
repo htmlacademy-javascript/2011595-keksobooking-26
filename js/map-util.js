@@ -4,6 +4,7 @@ import { getData } from './api.js';
 import { createPopup } from './popup.js';
 import { noticeForm, onNoticeFormSubmit } from './form-validation.js';
 import { createErrorMessageLoad } from './massage.js';
+import { checkAdvert, setFilter } from './map-filter.js';
 
 export const successfulLoadMap = () => {
   changeFormsState(true);
@@ -41,8 +42,9 @@ export const createMap = () => {
 
   const advertPin = createPinIcon(ADVERT_PIN);
 
+  const markerGroup = L.layerGroup().addTo(map);
+
   const createAdvertPinMarker = (advert) => {
-    const markerGroup = L.layerGroup().addTo(map);
     const advertPinMarker = createPinMarker(
       advert.location.lat,
       advert.location.lng,
@@ -53,14 +55,23 @@ export const createMap = () => {
   };
 
   const createMarkersForAdverts = (advertsData) => {
-    advertsData.forEach((advert) => {
-      createAdvertPinMarker(advert);
-    });
+    markerGroup.clearLayers();
+
+    advertsData
+      .slice()
+      .filter((advert) => checkAdvert(advert))
+      .slice(0, MAX_ADVERTS)
+      .forEach((advert) => createAdvertPinMarker(advert));
   };
 
   const onSuccessLoad = (data) => {
     // нарисовать пины 10 штук
-    createMarkersForAdverts(data.slice(0, MAX_ADVERTS));
+    createMarkersForAdverts(data);
+    // Слушать change в форме фильтров и отрисовывать пины(с очисткой предыдущего слоя) с фильтрации
+    setFilter(() => createMarkersForAdverts(data));
+    noticeForm.addEventListener('reset', () => {
+      createMarkersForAdverts(data);
+    });
   };
 
   const onErrorLoad = () => {
