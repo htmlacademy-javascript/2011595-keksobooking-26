@@ -3,10 +3,10 @@ import { noticeForm } from './form-validation.js';
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const avatarImageChooser = noticeForm.querySelector('.ad-form-header__input');
-const avatarPreview = noticeForm.querySelector('.ad-form-header__preview-image');
+export const avatarPreview = noticeForm.querySelector('.ad-form-header__preview-image');
 const houseImageChooser = noticeForm.querySelector('.ad-form__input');
-const housePreview = noticeForm.querySelector('.ad-form__photo-image');
-const avatarPreviewContainer = noticeForm.querySelector('.ad-form-header__preview');
+export const housePreview = noticeForm.querySelector('.ad-form__photo-image');
+export const avatarPreviewContainer = noticeForm.querySelector('.ad-form-header__preview');
 const housePreviewContainer = noticeForm.querySelector('.ad-form__photo');
 
 const setPreview = (chooser, img, container) => {

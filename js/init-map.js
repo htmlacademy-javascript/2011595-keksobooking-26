@@ -1,7 +1,7 @@
 import './form-image.js';
 import { changeFormsState } from './activate-page.js';
 import { createMap, mainPinMarker } from './map-util.js';
-import { resetFilterForm, resetNoticeForm } from './reset-forms.js';
+import {resetFilterForm, resetNoticeForm} from './reset-forms.js';
 import { resetSlider } from './slider.js';
 import { noticeForm } from './form-validation.js';
 import { CENTRE_CITY, MAP_ZOOM } from './map-data.js';
