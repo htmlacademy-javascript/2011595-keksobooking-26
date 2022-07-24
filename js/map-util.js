@@ -67,7 +67,7 @@ export const createMap = () => {
   const onSuccessLoad = (data) => {
     // нарисовать пины 10 штук
     createMarkersForAdverts(data);
-    // Слушать change в форме фильтров и отрисовывать пины(с очисткой предыдущего слоя) с фильтрации
+    // Слушать change в форме фильтров и отрисовывать пины(с очисткой предыдущего слоя) с фильтрацией
     setFilter(() => createMarkersForAdverts(data));
     noticeForm.addEventListener('reset', () => {
       createMarkersForAdverts(data);
