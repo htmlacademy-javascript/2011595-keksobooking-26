@@ -1,10 +1,19 @@
 import { changeFormsState } from './activate-page.js';
-import { ADVERT_PIN, CENTRE_CITY, MAIN_PIN, MAP_ZOOM, MAX_ADVERTS } from './map-data.js';
+import {
+  ADVERT_PIN,
+  CENTRE_CITY,
+  MAIN_PIN,
+  MAP_ZOOM,
+  MAX_ADVERTS,
+} from './map-data.js';
 import { getData } from './api.js';
 import { createPopup } from './popup.js';
 import { noticeForm, onNoticeFormSubmit } from './form-validation.js';
 import { createErrorMessageLoad } from './massage.js';
 import { checkAdvert, setFilter } from './map-filter.js';
+import { debounce } from './util.js';
+
+const RERENDER_DELAY = 500;
 
 export const successfulLoadMap = () => {
   changeFormsState(true);
@@ -24,15 +33,26 @@ const createPinMarker = (latitude, longitude, draggable, icon) =>
   );
 
 const createPinIcon = ({ source, width, height, centerAnchor, bottomAnchor }) =>
-  L.icon({ iconUrl: source, iconSize: [width, height], iconAnchor: [centerAnchor, bottomAnchor] });
+  L.icon({
+    iconUrl: source,
+    iconSize: [width, height],
+    iconAnchor: [centerAnchor, bottomAnchor],
+  });
 
 export const mainPin = createPinIcon(MAIN_PIN);
 
 // Создание и добавление на карту основной метки
-export const mainPinMarker = createPinMarker(CENTRE_CITY.lat, CENTRE_CITY.lng, true, mainPin);
+export const mainPinMarker = createPinMarker(
+  CENTRE_CITY.lat,
+  CENTRE_CITY.lng,
+  true,
+  mainPin
+);
 
 export const createMap = () => {
-  const map = L.map('map-canvas').on('load', successfulLoadMap).setView(CENTRE_CITY, MAP_ZOOM);
+  const map = L.map('map-canvas')
+    .on('load', successfulLoadMap)
+    .setView(CENTRE_CITY, MAP_ZOOM);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -68,7 +88,7 @@ export const createMap = () => {
     // нарисовать пины 10 штук
     createMarkersForAdverts(data);
     // Слушать change в форме фильтров и отрисовывать пины(с очисткой предыдущего слоя) с фильтрацией
-    setFilter(() => createMarkersForAdverts(data));
+    setFilter(debounce(() => createMarkersForAdverts(data), RERENDER_DELAY));
     noticeForm.addEventListener('reset', () => {
       createMarkersForAdverts(data);
     });
