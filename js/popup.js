@@ -1,4 +1,3 @@
-import { createAdvertisements } from './data.js';
 import {
   checkValue,
   checkValueOfRoomsAndGuests,
@@ -18,8 +17,7 @@ const typesHousingToRussian = {
 const addCardTemplate = document.querySelector('#card').content;
 const addCardPopup = addCardTemplate.querySelector('.popup');
 
-const similarAdds = createAdvertisements();
-const createPopup = ({ author, offer }) => {
+export const createPopup = ({ author, offer }) => {
   const { avatar } = author;
   const {
     title,
@@ -66,7 +64,7 @@ const createPopup = ({ author, offer }) => {
 
   checkValueOfCheckoutAndCheckin(popupTime, checkout, checkin);
 
-  checkValueOfChild(featureList, features);
+  checkValueOfChild(featureList, features, featureContainer);
 
   // удаляю заглушку
   addElement.querySelector('.popup__photo').remove();
@@ -75,5 +73,3 @@ const createPopup = ({ author, offer }) => {
 
   return addElement;
 };
-
-export { similarAdds, createPopup };

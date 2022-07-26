@@ -1,35 +1,18 @@
-const noticeForm = document.querySelector('.ad-form');
+import { sendData } from './api.js';
+import { createErrorMessage, createSuccessMessage } from './massage.js';
+import { onNoticeFormReset } from './init-map.js';
+import { checkStateOfSubmit } from './state-submit-button.js';
+import { CAPACITY_OPTION, TEXT_ERRORS, TITLE_LENGTH, TYPE_PRICE } from './form-validation-data.js';
+
+export const noticeForm = document.querySelector('.ad-form');
 const titleField = noticeForm.querySelector('#title');
 const typeField = noticeForm.querySelector('#type');
-const priceField = noticeForm.querySelector('#price');
+export const priceField = noticeForm.querySelector('#price');
 const roomField = noticeForm.querySelector('#room_number');
 const guestField = noticeForm.querySelector('#capacity');
 const checkinField = noticeForm.querySelector('#timein');
 const checkoutField = noticeForm.querySelector('#timeout');
-const addressField = noticeForm.querySelector('#address');
-
-const TEXT_ERRORS = {
-  notForGuests: '100 комнат - не для гостей',
-  roomsLessGuests: 'Количество гостей не должно превышать количество комнат',
-};
-
-const TITLE_LENGTH = {
-  min: 30,
-  max: 100,
-};
-
-const TYPE_PRICE = {
-  bungalow: 0,
-  flat: 1000,
-  hotel: 3000,
-  house: 5000,
-  palace: 10000,
-};
-
-const CAPACITY_OPTION = {
-  notGuests: 0,
-  maxRoom: 100,
-};
+export const addressField = noticeForm.querySelector('#address');
 
 const pristine = new Pristine(noticeForm, {
   classTo: 'ad-form__element',
@@ -41,7 +24,6 @@ const pristine = new Pristine(noticeForm, {
 });
 
 // Валидация заголовка объявления
-
 const validateTitle = (value) =>
   value.length >= TITLE_LENGTH.min && value.length <= TITLE_LENGTH.max;
 
@@ -55,15 +37,16 @@ const getErrorTitleMessage = (value) => {
 };
 
 // Валидация поля «Цена за ночь» с зависимостью минимальной цены и плейсхолдера от поля «Тип жилья»
-const price = Number(priceField.value);
 
-const validatePrice = () => price >= TYPE_PRICE[typeField.value] && price <= priceField.max;
+const validatePrice = () =>
+  Number(priceField.value) >= TYPE_PRICE[typeField.value] &&
+  Number(priceField.value) <= priceField.max;
 
 const getErrorPriceMessage = () => {
-  if (price < TYPE_PRICE[typeField.value]) {
+  if (Number(priceField.value) < TYPE_PRICE[typeField.value]) {
     return `Минимальная цена должна быть больше ${TYPE_PRICE[typeField.value]}`;
   }
-  if (price > priceField.max) {
+  if (Number(priceField.value) > priceField.max) {
     return `Цена не должна превышать ${priceField.max}`;
   }
 };
@@ -81,7 +64,7 @@ const onTypeFieldChange = () => {
   pristine.validate(priceField);
 };
 
-// Синхронизация «Количество комнат» с полем «Количество мест»
+// // Синхронизация «Количество комнат» с полем «Количество мест»
 const validateRoomsAndGuests = () =>
   (Number(guestField.value) <= Number(roomField.value) &&
     Number(roomField.value) !== CAPACITY_OPTION.maxRoom &&
@@ -144,9 +127,31 @@ pristine.addValidator(titleField, validateTitle, getErrorTitleMessage);
 pristine.addValidator(priceField, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guestField, validateRoomsAndGuests, getErrorGuestsMessage);
 
-const onNoticeFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+const onSuccess = () => {
+  createSuccessMessage();
+  onNoticeFormReset();
 };
 
-export { onNoticeFormSubmit, addressField, priceField, noticeForm };
+const onError = () => {
+  createErrorMessage();
+};
+
+export const onNoticeFormSubmit = (evt) => {
+  evt.preventDefault();
+
+  const isValid = pristine.validate();
+  if (isValid) {
+    checkStateOfSubmit(true);
+    sendData(
+      () => {
+        onSuccess();
+        checkStateOfSubmit(false);
+      },
+      () => {
+        onError();
+        checkStateOfSubmit(false);
+      },
+      new FormData(evt.target)
+    );
+  }
+};
