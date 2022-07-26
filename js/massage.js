@@ -1,7 +1,7 @@
 import { checkValue } from './util.js';
 
-const TEXT_BUTTON = 'Перезагрузить страницу';
 const TEXT_NOTICE = 'Ошибка получения данных с сервера';
+const TEXT_BUTTON = 'Перезагрузить страницу';
 
 const pageBody = document.querySelector('body');
 
@@ -30,7 +30,9 @@ export const createSuccessMessage = () => {
 };
 
 export const createErrorMessage = () => {
-  const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+  const errorMessageTemplate = document
+    .querySelector('#error')
+    .content.querySelector('.error');
   const errorMessage = errorMessageTemplate.cloneNode(true);
   const errorMessageButton = errorMessage.querySelector('.error__button');
 
@@ -55,10 +57,14 @@ export const createErrorMessage = () => {
 };
 
 export const createErrorMessageLoad = () => {
-  const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+  const errorMessageTemplate = document
+    .querySelector('#error')
+    .content.querySelector('.error');
   const errorMessageLoad = errorMessageTemplate.cloneNode(true);
-  const errorMessageButtonLoad = errorMessageLoad.querySelector('.error__button');
-  const errorMessageTextLoad = errorMessageLoad.querySelector('.error__message');
+  const errorMessageButtonLoad =
+    errorMessageLoad.querySelector('.error__button');
+  const errorMessageTextLoad =
+    errorMessageLoad.querySelector('.error__message');
 
   checkValue(errorMessageButtonLoad, TEXT_BUTTON);
   checkValue(errorMessageTextLoad, TEXT_NOTICE);
