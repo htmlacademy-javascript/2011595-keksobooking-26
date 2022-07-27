@@ -1,5 +1,5 @@
 import { filterForm } from './activate-page.js';
-import { FILTER_PRICE } from './map-data.js';
+import {FILTER_DEFAULT_VALUE, FilterPrice} from './map-data.js';
 
 const filterType = filterForm.querySelector('#housing-type');
 const filterPrice = filterForm.querySelector('#housing-price');
@@ -10,37 +10,37 @@ const filterFeatures = filterForm.querySelectorAll('.map__checkbox');
 const checkType = (dataType) => {
   const filterTypeSelect = filterType.value;
 
-  return filterTypeSelect === 'any' || filterTypeSelect === dataType;
+  return filterTypeSelect === FILTER_DEFAULT_VALUE || filterTypeSelect === dataType;
 };
 
 const checkPrice = (dataPrice) => {
   const filterPriceSelect = filterPrice.value;
   const advertPrice = Number(dataPrice);
 
-  if (filterPriceSelect === 'any') {
+  if (filterPriceSelect === FILTER_DEFAULT_VALUE) {
     return true;
   }
-  if (filterPriceSelect === 'low') {
-    return advertPrice < FILTER_PRICE.low;
+  if (filterPriceSelect === FilterPrice.LOW_VALUE) {
+    return advertPrice < FilterPrice.LOW;
   }
-  if (filterPriceSelect === 'middle') {
-    return advertPrice >= FILTER_PRICE.low && advertPrice <= FILTER_PRICE.high;
+  if (filterPriceSelect === FilterPrice.MIDDLE_VALUE) {
+    return advertPrice >= FilterPrice.LOW && advertPrice <= FilterPrice.HIGH;
   }
-  if (filterPriceSelect === 'high') {
-    return advertPrice > FILTER_PRICE.high;
+  if (filterPriceSelect === FilterPrice.HIGH_VALUE) {
+    return advertPrice > FilterPrice.HIGH;
   }
 };
 
 const checkRooms = (dataRooms) => {
   const filterRoomSelect = filterRoom.value;
 
-  return filterRoomSelect === 'any' || Number(filterRoomSelect) === Number(dataRooms);
+  return filterRoomSelect === FILTER_DEFAULT_VALUE || Number(filterRoomSelect) === Number(dataRooms);
 };
 
 const checkGuests = (dataGuests) => {
   const filterGuestSelect = filterGuest.value;
 
-  return filterGuestSelect === 'any' || Number(filterGuestSelect) === Number(dataGuests);
+  return filterGuestSelect === FILTER_DEFAULT_VALUE || Number(filterGuestSelect) === Number(dataGuests);
 };
 
 const checkFeature = (dataFeature) => {

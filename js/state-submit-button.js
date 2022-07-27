@@ -11,10 +11,7 @@ const changeStateOfElement = (element, text, condition) => {
   fillInElement(element, text);
 };
 
-export const checkStateOfSubmit = (condition) => {
-  if (condition) {
-    changeStateOfElement(noticeFormSubmit, TEXT_STATE_PUBLICATION, condition);
-  } else {
-    changeStateOfElement(noticeFormSubmit, TEXT_STATE_DEFAULT, condition);
-  }
-};
+export const checkStateOfSubmit = (condition) =>
+  condition
+    ? changeStateOfElement(noticeFormSubmit, TEXT_STATE_PUBLICATION, condition)
+    : changeStateOfElement(noticeFormSubmit, TEXT_STATE_DEFAULT, condition);

@@ -36,13 +36,8 @@ const removeParentElement = (element) => {
   element.remove();
 };
 
-export const checkValue = (element, value, property = 'textContent') => {
-  if (value) {
-    fillInElement(element, value, property);
-  } else {
-    removeElement(element);
-  }
-};
+export const checkValue = (element, value, property = 'textContent') =>
+  value ? fillInElement(element, value, property) : removeElement(element);
 
 const fillInRoomsAndGuests = (rooms, guests, element) => {
   if (rooms && !guests) {
@@ -52,19 +47,12 @@ const fillInRoomsAndGuests = (rooms, guests, element) => {
     element.textContent = `для ${guests} ${fixGuestName(guests)}`;
   }
   if (rooms && guests) {
-    element.textContent = `${rooms} ${fixRoomName(
-      rooms
-    )} для ${guests} ${fixGuestName(guests)}`;
+    element.textContent = `${rooms} ${fixRoomName(rooms)} для ${guests} ${fixGuestName(guests)}`;
   }
 };
 
-export const checkValueOfRoomsAndGuests = (element, rooms, guests) => {
-  if (!rooms && !guests) {
-    removeElement(element);
-  } else {
-    fillInRoomsAndGuests(rooms, guests, element);
-  }
-};
+export const checkValueOfRoomsAndGuests = (element, rooms, guests) =>
+  !rooms && !guests ? removeElement(element) : fillInRoomsAndGuests(rooms, guests, element);
 
 const fillInCheckoutAndCheckin = (element, checkout, checkin) => {
   if (checkout && !checkin) {
@@ -78,13 +66,10 @@ const fillInCheckoutAndCheckin = (element, checkout, checkin) => {
   }
 };
 
-export const checkValueOfCheckoutAndCheckin = (element, checkout, checkin) => {
-  if (!checkout && !checkin) {
-    removeElement(element);
-  } else {
-    fillInCheckoutAndCheckin(element, checkout, checkin);
-  }
-};
+export const checkValueOfCheckoutAndCheckin = (element, checkout, checkin) =>
+  !checkout && !checkin
+    ? removeElement(element)
+    : fillInCheckoutAndCheckin(element, checkout, checkin);
 
 const fillInPhoto = (element, photos) => {
   photos.forEach((photo) => {
@@ -95,13 +80,8 @@ const fillInPhoto = (element, photos) => {
   });
 };
 
-export const checkValueOfPhoto = (element, photos) => {
-  if (photos) {
-    fillInPhoto(element, photos);
-  } else {
-    removeElement(element);
-  }
-};
+export const checkValueOfPhoto = (element, photos) =>
+  photos ? fillInPhoto(element, photos) : removeElement(element);
 
 const checkContainOfChildElement = (
   element,
@@ -110,9 +90,7 @@ const checkContainOfChildElement = (
 ) => {
   element.forEach((elementListItem) => {
     const isNecessary = modifiersOfChildElement.some((modifierOfChildElement) =>
-      elementListItem.classList.contains(
-        `${childElement}--${modifierOfChildElement}`
-      )
+      elementListItem.classList.contains(`${childElement}--${modifierOfChildElement}`)
     );
 
     if (!isNecessary) {
@@ -121,13 +99,8 @@ const checkContainOfChildElement = (
   });
 };
 
-export const checkValueOfChild = (list, value, parent) => {
-  if (value) {
-    checkContainOfChildElement(list, value);
-  } else {
-    removeParentElement(parent);
-  }
-};
+export const checkValueOfChild = (list, value, parent) =>
+  value ? checkContainOfChildElement(list, value) : removeParentElement(parent);
 
 export const addClass = (element, addedClass) => {
   element.classList.add(addedClass);

@@ -2,7 +2,13 @@ import { sendData } from './api.js';
 import { createErrorMessage, createSuccessMessage } from './massage.js';
 import { onNoticeFormReset } from './init-map.js';
 import { checkStateOfSubmit } from './state-submit-button.js';
-import { CAPACITY_OPTION, TEXT_ERRORS, TITLE_LENGTH, TYPE_PRICE } from './form-validation-data.js';
+import {
+  CapacityOption,
+  PRICE_MAX,
+  TextErrors,
+  TitleLength,
+  TypePrice,
+} from './form-validation-data.js';
 
 export const noticeForm = document.querySelector('.ad-form');
 const titleField = noticeForm.querySelector('#title');
@@ -24,39 +30,33 @@ const pristine = new Pristine(noticeForm, {
 });
 
 // Валидация заголовка объявления
-const validateTitle = (value) =>
-  value.length >= TITLE_LENGTH.min && value.length <= TITLE_LENGTH.max;
+const validateTitle = (value) => value.length >= TitleLength.MIN && value.length <= TitleLength.MAX;
 
 const getErrorTitleMessage = (value) => {
-  if (value.length <= TITLE_LENGTH.min) {
-    return `Минимальная длина ${TITLE_LENGTH.min} символов`;
+  if (value.length <= TitleLength.MIN) {
+    return `Минимальная длина ${TitleLength.MIN} символов`;
   }
-  if (value.length >= TITLE_LENGTH.max) {
-    return `Максимальная длина ${TITLE_LENGTH.max} символов`;
+  if (value.length >= TitleLength.MAX) {
+    return `Максимальная длина ${TitleLength.MAX} символов`;
   }
 };
 
 // Валидация поля «Цена за ночь» с зависимостью минимальной цены и плейсхолдера от поля «Тип жилья»
 
 const validatePrice = () =>
-  Number(priceField.value) >= TYPE_PRICE[typeField.value] &&
-  Number(priceField.value) <= priceField.max;
+  Number(priceField.value) >= TypePrice[typeField.value] && Number(priceField.value) <= PRICE_MAX;
 
 const getErrorPriceMessage = () => {
-  if (Number(priceField.value) < TYPE_PRICE[typeField.value]) {
-    return `Минимальная цена должна быть больше ${TYPE_PRICE[typeField.value]}`;
+  if (Number(priceField.value) < TypePrice[typeField.value]) {
+    return `Минимальная цена должна быть больше ${TypePrice[typeField.value]}`;
   }
-  if (Number(priceField.value) > priceField.max) {
-    return `Цена не должна превышать ${priceField.max}`;
+  if (Number(priceField.value) > PRICE_MAX) {
+    return `Цена не должна превышать ${PRICE_MAX}`;
   }
 };
 
 const setPlaceholderForPrice = () => {
-  Object.keys(TYPE_PRICE).forEach((type) => {
-    if (typeField.value === type) {
-      priceField.placeholder = TYPE_PRICE[type];
-    }
-  });
+  priceField.placeholder = TypePrice[typeField.value];
 };
 
 const onTypeFieldChange = () => {
@@ -67,22 +67,22 @@ const onTypeFieldChange = () => {
 // // Синхронизация «Количество комнат» с полем «Количество мест»
 const validateRoomsAndGuests = () =>
   (Number(guestField.value) <= Number(roomField.value) &&
-    Number(roomField.value) !== CAPACITY_OPTION.maxRoom &&
-    Number(guestField.value) !== CAPACITY_OPTION.notGuests) ||
-  (Number(roomField.value) === CAPACITY_OPTION.maxRoom &&
-    Number(guestField.value) === CAPACITY_OPTION.notGuests);
+    Number(roomField.value) !== CapacityOption.MAX_ROOMS &&
+    Number(guestField.value) !== CapacityOption.NOT_GUESTS) ||
+  (Number(roomField.value) === CapacityOption.MAX_ROOMS &&
+    Number(guestField.value) === CapacityOption.NOT_GUESTS);
 
 const getErrorGuestsMessage = () => {
   if (Number(roomField.value) < Number(guestField.value)) {
-    return TEXT_ERRORS.roomsLessGuests;
+    return TextErrors.ROOMS_LESS_GUESTS;
   }
   if (
-    (Number(roomField.value) === CAPACITY_OPTION.maxRoom &&
-      Number(guestField.value) !== CAPACITY_OPTION.notGuests) ||
-    (Number(roomField.value) !== CAPACITY_OPTION.maxRoom &&
-      Number(guestField.value) === CAPACITY_OPTION.notGuests)
+    (Number(roomField.value) === CapacityOption.MAX_ROOMS &&
+      Number(guestField.value) !== CapacityOption.NOT_GUESTS) ||
+    (Number(roomField.value) !== CapacityOption.MAX_ROOMS &&
+      Number(guestField.value) === CapacityOption.NOT_GUESTS)
   ) {
-    return TEXT_ERRORS.notForGuests;
+    return TextErrors.NOT_FOR_GUESTS;
   }
 };
 
