@@ -1,8 +1,8 @@
 import { changeFormsState } from './activate-page.js';
 import {
-  ADVERT_PIN,
-  CENTRE_CITY,
-  MAIN_PIN,
+  AdvertPin,
+  CentreCity,
+  MainPin,
   MAP_ZOOM,
   MAX_ADVERTS,
 } from './map-data.js';
@@ -39,12 +39,12 @@ const createPinIcon = ({ source, width, height, centerAnchor, bottomAnchor }) =>
     iconAnchor: [centerAnchor, bottomAnchor],
   });
 
-export const mainPin = createPinIcon(MAIN_PIN);
+export const mainPin = createPinIcon(MainPin);
 
 // Создание и добавление на карту основной метки
 export const mainPinMarker = createPinMarker(
-  CENTRE_CITY.lat,
-  CENTRE_CITY.lng,
+  CentreCity.lat,
+  CentreCity.lng,
   true,
   mainPin
 );
@@ -52,7 +52,7 @@ export const mainPinMarker = createPinMarker(
 export const createMap = () => {
   const map = L.map('map-canvas')
     .on('load', successfulLoadMap)
-    .setView(CENTRE_CITY, MAP_ZOOM);
+    .setView(CentreCity, MAP_ZOOM);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -60,7 +60,7 @@ export const createMap = () => {
 
   mainPinMarker.addTo(map);
 
-  const advertPin = createPinIcon(ADVERT_PIN);
+  const advertPin = createPinIcon(AdvertPin);
 
   const markerGroup = L.layerGroup().addTo(map);
 
@@ -78,7 +78,6 @@ export const createMap = () => {
     markerGroup.clearLayers();
 
     advertsData
-      .slice()
       .filter((advert) => checkAdvert(advert))
       .slice(0, MAX_ADVERTS)
       .forEach((advert) => createAdvertPinMarker(advert));

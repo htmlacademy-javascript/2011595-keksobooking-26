@@ -1,4 +1,4 @@
-export const EXTREME = {
+export const Extreme = {
   min: 0,
   max: 100000,
 };

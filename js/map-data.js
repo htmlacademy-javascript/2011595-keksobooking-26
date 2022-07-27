@@ -1,11 +1,13 @@
 export const MAP_ZOOM = 13;
+export const FILTER_DEFAULT_VALUE = 'any';
+export const MAX_ADVERTS = 10;
 
-export const CENTRE_CITY = {
+export const CentreCity = {
   lat: 35.675,
   lng: 139.75,
 };
 
-export const MAIN_PIN = {
+export const MainPin = {
   source: './img/main-pin.svg',
   width: 52,
   height: 52,
@@ -13,7 +15,7 @@ export const MAIN_PIN = {
   bottomAnchor: 52,
 };
 
-export const ADVERT_PIN = {
+export const AdvertPin = {
   source: './img/pin.svg',
   width: 40,
   height: 40,
@@ -21,9 +23,10 @@ export const ADVERT_PIN = {
   bottomAnchor: 40,
 };
 
-export const MAX_ADVERTS = 10;
-
-export const FILTER_PRICE = {
-  low: 10000,
-  high: 50000,
+export const FilterPrice = {
+  LOW: 10000,
+  HIGH: 50000,
+  LOW_VALUE: 'low',
+  MIDDLE_VALUE: 'middle',
+  HIGH_VALUE: 'high',
 };

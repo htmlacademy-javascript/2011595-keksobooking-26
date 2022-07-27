@@ -4,7 +4,7 @@ import { createMap, mainPinMarker } from './map-util.js';
 import {resetFilterForm, resetNoticeForm} from './reset-forms.js';
 import { resetSlider } from './slider.js';
 import { noticeForm } from './form-validation.js';
-import { CENTRE_CITY, MAP_ZOOM } from './map-data.js';
+import { CentreCity, MAP_ZOOM } from './map-data.js';
 import { setAddress } from './util.js';
 
 changeFormsState(false);
@@ -18,8 +18,8 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 const resetMap = () => {
-  map.setView(CENTRE_CITY, MAP_ZOOM).closePopup();
-  mainPinMarker.setLatLng(CENTRE_CITY);
+  map.setView(CentreCity, MAP_ZOOM).closePopup();
+  mainPinMarker.setLatLng(CentreCity);
 };
 
 export const onNoticeFormReset = () => {
